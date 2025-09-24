@@ -12,7 +12,7 @@ class TimeInController extends Controller
 {
     //
     public function index(Request $request) {
-        $division = $request->has('division') ? $request->division : null;
+        $division = $request->has('division') && $request->division != '' ? $request->division : null;
         if(!$division) {
             return abort(403, 'DIVISION NOT FOUND');
         }
@@ -22,7 +22,7 @@ class TimeInController extends Controller
     }
 
     public function show(Request $request) {
-        $division = $request->has('division') ? $request->division : null;
+        $division = $request->has('division') && $request->division != '' ? $request->division : null;
         $user_id = $request->has('user_id') ? $request->user_id : null;
         if(!$division) {
             return abort(403, 'DIVISION NOT FOUND');
@@ -44,6 +44,9 @@ class TimeInController extends Controller
             'main' => MSDUserInfo::class,
             'tsd' => TSDUserInfo::class,
         ];
+        if(!$user_id || $user_id == '') {
+            abort(403, 'USER ID NOT FOUND');
+        }
         $user = $userClasses[$division]::where('tin', $user_id)->where('is_active', 1)->first();
         if(!$user) {
             $user = $userClasses[$division]::where('SSN', $user_id)->where('is_active', 1)->first();

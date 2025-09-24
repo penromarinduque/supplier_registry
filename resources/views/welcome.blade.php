@@ -127,7 +127,7 @@
                     <div class="card h-100 text-center p-4">
                         <div class="card-body">
                             <i class="bi bi-building card-icon"></i>
-                            <h4 class="card-title text-dark">MAIN BUILDING</h4>
+                            <h4 class="card-title text-dark">Management Services Division</h4>
                         </div>
                     </div>
                 </a>
@@ -139,7 +139,7 @@
                     <div class="card h-100 text-center p-4">
                         <div class="card-body">
                             <i class="bi bi-house-gear card-icon"></i>
-                            <h4 class="card-title text-dark">TSD BUILDING</h4>
+                            <h4 class="card-title text-dark">Technical Services Division</h4>
                         </div>
                     </div>
                 </a>
@@ -151,7 +151,7 @@
                     <div class="card h-100 text-center p-4">
                         <div class="card-body">
                             <i class="bi bi-buildings card-icon"></i>
-                            <h4 class="card-title text-dark">PAMO</h4>
+                            <h4 class="card-title text-dark">Protected Area Management Office</h4>
                         </div>
                     </div>
                 </a>

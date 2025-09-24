@@ -68,6 +68,9 @@ class TimeEntryController extends Controller
             'main' => MSDUserInfo::class,
             'tsd' => TSDUserInfo::class,
         ];
+        if(!$user_id || $user_id == '') {
+            abort(403, 'USER ID NOT FOUND');
+        }
         $user = $userClasses[$division]::where('userID', $user_id)->where('is_active', 1)->first();
         if(!$user) {
             return abort(404, 'USER NOT FOUND');
