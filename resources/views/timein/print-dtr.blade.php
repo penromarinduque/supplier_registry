@@ -134,6 +134,7 @@
         }
     }
 </style>
+
     
 @endsection
 @section('content')
@@ -335,7 +336,70 @@
             @endif
 
         </table>
-        <br>
+        <br><br><br><br>
+        <!-- Supervisor's Signature -->
+        <table width="720" align="center" style="margin-top: -20px; border-collapse: collapse;">
+            <tr>
+                <!-- style="border-top: 1px solid #ccc; padding: 15px;" -->
+                <td align="center" width="340">
+                    <div style="margin-bottom: 15px;">
+                        <p style="margin-bottom: 40px; font-size: 13px;">I certify that the entries on this record which
+                            were made by myself daily at the time of arrival and departure from the office are true and
+                            correct.
+                        </p>
+                        <div style="margin-top: 10px;">
+                            <span
+                                style="font-weight: bold; font-size: 14px;">{{ $user->name }}</span><br />
+                            <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
+                            <span style="font-size: 13px;">{{ $user->position }}</span>
+                        </div>
+                    </div>
+                </td>
+                <td width="40">&nbsp;</td>
+                <!-- style="border-top: 1px solid #ccc; padding: 15px;" -->
+                <td width="340">
+                    <div style="text-align: center;">
+                        <p style="margin-bottom: 55px; font-size: 13px;">Verified as to the prescribed office hours.</p>
+                        <div style="margin-top: 10px;">
+                            <div class="screen-view">
+                                <select class="name" id="name{{ $user->badgeNumber }}"
+                                    style="width: 280px; text-align: center; text-transform: uppercase; font-weight: bold;">
+                                    <option value="IMELDA M. DIAZ" >IMELDA M. DIAZ</option>
+                                    <option value="GEMMA P. DELOS REYES" {{ $division == 'main' ? 'selected' : '' }}>GEMMA P. DELOS REYES</option>
+                                    <option value="CYNTHIA U. LOZANO" {{ $division == 'tsd' ? 'selected' : '' }}>CYNTHIA U. LOZANO</option>
+                                    <option value="NANNETTE M. JOVEN" {{ $division == 'pamo' ? 'selected' : '' }}>NANNETTE M. JOVEN</option>
+                                </select>
+                                <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
+                                <select class="position" id="pstn{{ $user->badgeNumber }}"
+                                    style="width: 280px; text-align: center;">
+                                    <option value="OIC, PENR Officer">PENR Officer</option>
+                                    <option value="In-Charge, Management Services Division" {{ $division == 'main' ? 'selected' : '' }}>In-Charge, Management Services Division</option>
+                                    <option value="Chief, Technical Services Division" {{ $division == 'tsd' ? 'selected' : '' }}>Chief, Technical Services Division</option>
+                                    <option value="Forester III/PASu, MWS" {{ $division == 'pamo' ? 'selected' : '' }}>Forester III/PASu, MWS</option>
+                                </select>
+                            </div>
+                            <div class="print-view">
+                                <span class="print-super" style="font-weight: bold; font-size: 14px;"
+                                    id="print_name{{ $user->badgeNumber }}"></span>
+                                <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
+                                <span class="print-position" style="font-size: 13px;"
+                                    id="print_position{{ $user->badgeNumber }}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div style="font-size: 10px; margin-top: 30px;">
+            <i>
+                <p style="font-size: 10px; opacity: 0.5;"><span> <strong>Reminder: </strong></span> Please return within
+                    5 days together with the required
+                    supporting
+                    documents (i.e. Special Order, Travel Orders, Notice of Meeting, etc.)
+                </p>
+            </i>
+        </div>
+            <br>
         <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
             <tr>
                 <th width="120" >Date</th>
@@ -353,8 +417,6 @@
                     </ul>
                 </td>
             </tr>
-            
-
         </table>
 
 
@@ -366,4 +428,26 @@
 		</table>
 	</div>
 </section>
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function () {
+			$(".name").change(function () {
+				var newID = ($(this).attr("id").slice(4, $(this).val().length));
+				$("#pstn" + newID).prop("selectedIndex", $(this).prop("selectedIndex"));
+				$("#print_name" + newID).html($(this).val());
+				$("#print_position" + newID).html($("#pstn" + newID).val());
+			})
+			.change();
+
+			$(".position").change(function () {
+				var newID = ($(this).attr("id").slice(4, $(this).val().length));
+				$("#name" + newID).prop("selectedIndex", $(this).prop("selectedIndex"));
+				$("#print_name" + newID).html($("#name" + newID).val());
+				$("#print_position" + newID).html($(this).val());
+			})
+			.change();
+    })
+</script>
 @endsection
