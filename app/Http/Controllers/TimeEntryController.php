@@ -19,6 +19,11 @@ class TimeEntryController extends Controller
             'user_no' => 'required',
             'entry_type' => 'required|in:pm_in,pm_out,am_in,am_out',
         ]);
+        $divisions = [
+            'pamo' => 'pamo',
+            'main' => 'msd',
+            'tsd' => 'tsd'
+        ];
 
         $time_entry = TimeEntry::where('user_id', $request->user_id)->whereDate('date', now())->first();
         if(!$time_entry && $request->entry_type != 'am_in') {
@@ -31,7 +36,7 @@ class TimeEntryController extends Controller
                 'am_in_location' => $request->location,
                 'date' => now(),
                 'am_in' => now(),
-                'division' => $request->division
+                'division' => $divisions[$request->division]
             ]);
         } else {
             $time_entry->update([
