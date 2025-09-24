@@ -45,7 +45,7 @@ class TimeEntryController extends Controller
             ]);
         }
         
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Time entry saved.');
     }
 
     public function printDtr(Request $request) {
@@ -57,7 +57,11 @@ class TimeEntryController extends Controller
         }
         $user = $this->getUserByTinOrItemNo($user_id, $division);
         $time_entries = TimeEntry::where('user_id', $user->userID)->whereDate('date', $date)->first();
-        $accomplishments = Accomplishment::where('user_id', $user->userID)->whereDate('date', $date)->get();
+        $accomplishments = Accomplishment::where('user_id', $user->userID)
+            ->with('task')
+            ->whereDate('date', $date)
+            ->orderBy('task_id', 'desc')
+            ->get();
         return view('timein.print-dtr', [
             'user' => $user,
             'division' => $division,

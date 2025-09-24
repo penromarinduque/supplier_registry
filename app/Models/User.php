@@ -33,6 +33,18 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public const DIVISIONS = [
+        'main' => 'msd',
+        'pamo' => 'pamo',
+        'tsd' => 'tsd',
+    ];
+
+    public const DIVISION_LABELS = [
+        'main' => 'Office of the PENRO/Management Services Division',
+        'pamo' => 'Protected Area Management Office',
+        'tsd' => 'Technical Services Division',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

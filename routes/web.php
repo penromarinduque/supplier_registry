@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccomplishmentController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimeEntryController;
 use App\Http\Controllers\TimeInController;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +20,14 @@ Route::group(['prefix' => 'time-entries', 'as' => 'timeEntries.'], function () {
 
 Route::group(['prefix' => 'accomplishments', 'as' => 'accomplishments.'], function () {
     Route::post('', [AccomplishmentController::class, 'store'])->name('store');
+    Route::get('edit/{id}', [AccomplishmentController::class, 'edit'])->name('edit');
+    Route::put('update/{id}', [AccomplishmentController::class, 'update'])->name('update');
+    Route::delete('{id}', [AccomplishmentController::class, 'delete'])->name('delete');
+});
+
+Route::group(['prefix' => 'tasks', 'as' => 'tasks.'], function () {
+    Route::post('', [TaskController::class, 'store'])->name('store');
+    Route::get('edit/{id}', [TaskController::class, 'edit'])->name('edit');
+    Route::put('update/{id}', [TaskController::class, 'update'])->name('update');
+    Route::delete('{id}', [TaskController::class, 'delete'])->name('delete');
 });

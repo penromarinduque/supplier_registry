@@ -400,25 +400,21 @@
             <br>
         <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
             <tr>
-                <th width="120" >Date</th>
-                <th >Accomplishment</th>
+                <th style="padding:5px" width="120" >Date</th>
+                <th style="padding:5px" >Task</th>
+                <th style="padding:5px" >Accomplishment</th>
             </tr>
-            <tr>
-                <td align="center">
-                    {{ $accomplishments->isNotEmpty() && $accomplishments->first()->date
-                        ? $accomplishments->first()->date->format('m-d-Y')
-                        : 'N/A' }}
-                </td>
-                <td>
-                    <ul>
-                        @foreach($accomplishments as $accomplishment)
-                            <li>
-                                {{$accomplishment->accomplishment}}
-                            </li>
-                        @endforeach
-                    </ul>
-                </td>
-            </tr>
+            @forelse ($accomplishments as $accomplishment => $item)
+                <tr>
+                    <td style="padding:5px">{{ $item->date->format('m-d-Y') }}</td>
+                    <td style="padding:5px">{{ $item->task->task }}</td>
+                    <td style="padding:5px">{{ $item->accomplishment }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td style="padding:5px" colspan="3">No Accomplishments</td>
+                </tr>
+            @endforelse
         </table>
 
 

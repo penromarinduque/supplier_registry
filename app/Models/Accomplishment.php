@@ -11,4 +11,8 @@ class Accomplishment extends Model
     protected $casts = [
         'date' => 'datetime'
     ];
+
+    public function task() {
+        return $this->belongsTo(Task::class);
+    }
 }

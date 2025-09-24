@@ -61,8 +61,11 @@
         </table>
     </div>
     <div class="d-flex justify-content-end">
-        <button class="btn btn-primary" onclick="showAddAccomplishmentModal()">
+        {{-- <button class="btn btn-primary" onclick="showAddAccomplishmentModal()">
             <i class="fas fa-plus"></i> Add Accomplishment
+        </button> --}}
+        <button class="btn btn-primary" onclick="showAddTaskModal()">
+            <i class="fas fa-plus"></i> Add Task
         </button>
     </div>
     <hr>
@@ -77,6 +80,45 @@
             <button type="submit" class="btn btn-primary">View DTR</button>
         </div>
     </form>
+    <br>
+    <hr>
+    <h5>Tasks</h5>
+    <div class="table-responsive">
+        <table class="table table-bordered bg-white">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Accomplishments</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            @forelse ($tasks as $task)
+                <tr>
+                    <td>{{ $task->task }}</td>
+                    <td>
+                        {{-- <ul> --}}
+                            @foreach ($task->accomplishments as $accomplishment)
+                                <div class="py-1">
+                                    <button class="btn btn-sm btn-outline-danger" title="Delete Accomplishment" onclick="confirmDelete('{{ route('accomplishments.delete', $accomplishment->id) }}', 'Are you sure you want to delete this accomplishment?')"><i class="fas fa-trash " style="font-size: 10px "></i></button>
+                                    <button class="btn btn-sm btn-outline-secondary" title="Edit Accomplishment" onclick="showUpdateAccomplishmentModal('{{ $accomplishment->accomplishment }}', '{{ route('accomplishments.update', $accomplishment->id) }}')"><i class="fas fa-pencil-alt " style="font-size: 10px"></i></button>
+                                    &nbsp;&nbsp;&nbsp;{{ $accomplishment->accomplishment }} 
+                                </div>
+                            @endforeach
+                        {{-- </ul> --}}
+                    </td>
+                    <td align="center">
+                        <button class="btn btn-sm btn-outline-primary" onclick="showAddAccomplishmentModal('{{ $task->id }}')">Add Accomplishment</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('{{ route('tasks.delete', $task->id) }}', 'Are you sure you want to delete this task?')"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="showEditTaskModal('{{ $task->task }}', '{{ route('tasks.update', $task->id) }}')"><i class="fas fa-pencil-alt"></i></button>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3">No Tasks</td>
+                </tr>
+            @endforelse
+        </table>
+    </div>
 </div>
 
 <div class="modal fade" id="addEntryModal">
@@ -121,46 +163,7 @@
         </form>
     </div>
 </div>
-<div class="modal fade" id="addAccomplishmentModal">
-    <div class="modal-dialog">
-        <form class="modal-content" action="{{ route('accomplishments.store') }}" method="POST">
-            <div class="modal-header">
-                <h4 class="modal-title">Add Accomplishment</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @if ($errors->any())
-                    <ul>
-                        @foreach ($errors->addAccomplishment->all() as $error)
-                            <li class="text-danger">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                @endif
-                @csrf
-                <input type="hidden" name="user_id" value="{{ $user->userID }}">
-                <input type="hidden" name="user_no" value="{{ $user->status == 'COS' ? $user->tin : $user->SSN }}">
-                <input type="hidden" name="division" value="{{ $division }}">
-                <div class="mb2">
-                    <h5 class="text-center" id="time"></h5>
-                </div>
-                <div class="mb-2">
-                    <label for="date">Accoplishment</label>
-                    <textarea class="form-control" name="accomplishment">{{ old('accomplishment') }}</textarea>
-                    @error('accomplishment')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary btn-submit">Save Accomplishment</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+
 @endsection
 
 @section('script')
@@ -169,15 +172,7 @@
             @if ($errors->any())
                 showAddEntryModal('{{ old('entry_type') }}');
             @endif
-            @if ($errors->addAccomplishment->any())
-                showAddAccomplishmentModal();
-            @endif
-            
         })
-        function showAddAccomplishmentModal(){
-            $('#addAccomplishmentModal #time').text(new Date().toLocaleTimeString());
-            $('#addAccomplishmentModal').modal('show');
-        }
         function showAddEntryModal(entryType){
             getLocation();
             $('#addEntryModal #entry_type').val(entryType);
@@ -218,4 +213,12 @@
         }
 
     </script>
+@endsection
+
+@section('includes')
+    @include('components.addTaskModal')
+    @include('components.editTaskModal')
+    @include('components.addAccomplishmentModal')
+    @include('components.editAccomplishmentModal')
+    @include('components.deleteConfirmationModal')
 @endsection

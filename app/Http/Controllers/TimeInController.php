@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MSDUserInfo;
 use App\Models\PAMOUserInfo;
+use App\Models\Task;
 use App\Models\TimeEntry;
 use App\Models\TSDUserInfo;
 use Illuminate\Http\Request;
@@ -30,11 +31,12 @@ class TimeInController extends Controller
         
         $user = $this->getUserByTinOrItemNo($user_id, $division);
         $time_entries = TimeEntry::where('user_id', $user->userID)->whereDate('date', now())->first();
-
+        $tasks = Task::where('user_id', $user->userID)->whereDate('date', now())->get();
         return view('timein.show', [
             'user' => $user,
             'division' => $division,
-            'time_entries' => $time_entries
+            'time_entries' => $time_entries,
+            'tasks' => $tasks
         ]);
     }
 

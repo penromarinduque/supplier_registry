@@ -18,6 +18,8 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 
+  
+
   <!-- Preloader -->
   {{-- <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__wobble" src="{{ asset('adminlte3/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
@@ -47,6 +49,25 @@
     <!-- /.content-header -->
     <section class="content">
       <div class="container-fluid">
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Error!</strong> {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Success!</strong> {{ session('success') }}
+            </div>
+        @endif
+
+
         @yield('content')
       </div>
     </section>
@@ -81,6 +102,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('adminlte3/dist/js/pages/dashboard2.js') }}"></script>
 @yield('script')
+@yield('includes')
 <script>
     $(document).ready(function() {
         $(".btn-submit").click(function() {
