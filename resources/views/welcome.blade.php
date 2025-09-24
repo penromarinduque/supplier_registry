@@ -127,7 +127,7 @@
                     <div class="card h-100 text-center p-4">
                         <div class="card-body">
                             <i class="bi bi-building card-icon"></i>
-                            <h4 class="card-title text-dark">Management Services Division</h4>
+                            <h4 class="card-title text-dark">Office of the PENRO/Management Services Division</h4>
                         </div>
                     </div>
                 </a>
