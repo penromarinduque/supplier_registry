@@ -31,6 +31,7 @@ class TimeEntryController extends Controller
                 'am_in_location' => $request->location,
                 'date' => now(),
                 'am_in' => now(),
+                'division' => $request->division
             ]);
         } else {
             $time_entry->update([

@@ -134,8 +134,6 @@
         }
     }
 </style>
-
-    
 @endsection
 @section('content')
 @php
@@ -406,7 +404,11 @@
                 <th >Accomplishment</th>
             </tr>
             <tr>
-                <td align="center">{{ $accomplishments[0]->date->format('m-d-Y') }}</td>
+                <td align="center">
+                    {{ $accomplishments->isNotEmpty() && $accomplishments->first()->date
+                        ? $accomplishments->first()->date->format('m-d-Y')
+                        : 'N/A' }}
+                </td>
                 <td>
                     <ul>
                         @foreach($accomplishments as $accomplishment)
