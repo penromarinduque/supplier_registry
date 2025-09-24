@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alternative Attendance System for tracking and managing employee attendance for PENRO Marinduque">
 
-    <title>Daily Time Record</title>
+    <title>Alternative Attendance System</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favico.ico" type="image/x-icon">
     <link rel="icon" href="images/favico.ico" type="image/x-icon">
