@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccomplishmentController;
 use App\Http\Controllers\TimeEntryController;
 use App\Http\Controllers\TimeInController;
 use Illuminate\Support\Facades\Route;
@@ -14,4 +15,8 @@ Route::get('/time-in/show', [TimeInController::class, 'show'])->name('timein.sho
 Route::group(['prefix' => 'time-entries', 'as' => 'timeEntries.'], function () {
     Route::post('', [TimeEntryController::class, 'store'])->name('store');
     Route::get('print-dtr', [TimeEntryController::class, 'printDtr'])->name('printDtr');
+});
+
+Route::group(['prefix' => 'accomplishments', 'as' => 'accomplishments.'], function () {
+    Route::post('', [AccomplishmentController::class, 'store'])->name('store');
 });

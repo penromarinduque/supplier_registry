@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('accomplishments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('accomplishment');
+            $table->string('user_no', 100);
+            $table->string('division');
+            $table->string('accomplishment', 1000);
             $table->dateTime('date');
             $table->timestamps();
         });

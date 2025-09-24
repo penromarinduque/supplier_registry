@@ -6,6 +6,11 @@
         font-family: Arial, sans-serif;
     }
 
+    .employee-summary {
+        width: 100%;
+        max-width: 1000px;
+    }
+
     body {
         font-size: 14px;
     }
@@ -276,59 +281,83 @@
     </div>
     <div id="previewArea" style="margin-top: 40px;"></div>
     <div class="break">
-			<p align="center" style="font-size: 18px;"><strong>DAILY TIME RECORD </strong></p>
-            <table width="720" align="center">
-				<tr>
-					<td>
-						<p>Attendance ID: <strong>{{ $user->userID }}</strong></p>
-						<p>Employee ID: <strong>{{ $user->SSN }}</strong></p>
-						<p>Employee: <strong>{{ $user->name }}</strong></p>
-						<p>Position/Designation: <strong>{{ $user->position }}</strong></p>
-					</td>
-					<td>
-						<p>Status: <strong>{{ $user->status }}</strong></p>
-						<p>Date : <strong><{{ $time_entries->date->format('F d Y') }}></strong></p>
-					</td>
-				</tr>
-			</table>
+        <p align="center" style="font-size: 18px;"><strong>DAILY TIME RECORD </strong></p>
+        <table width="720" align="center">
+            <tr>
+                <td>
+                    <p>Attendance ID: <strong>{{ $user->userID }}</strong></p>
+                    <p>Employee ID: <strong>{{ $user->SSN }}</strong></p>
+                    <p>Employee: <strong>{{ $user->name }}</strong></p>
+                    <p>Position/Designation: <strong>{{ $user->position }}</strong></p>
+                </td>
+                <td>
+                    <p>Status: <strong>{{ $user->status }}</strong></p>
+                    <p>Date : <strong>{{ now()->format('m/d/Y') }}</strong></p>
+                </td>
+            </tr>
+        </table>
 
-            <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
-				<tr>
-					<th rowspan="2" width="120">Date</th>
-					<th colspan="2">AM</th>
-					<th colspan="2">PM</th>
-					<th rowspan="2" width="90">Total Hours</th>
-					<th rowspan="2" width="90">Late</th>
-					<th rowspan="2" width="90">Undertime</th>
-					<th rowspan="2" width="90">Overtime</th>
-				</tr>
-				<tr>
-					<th width="90">IN</th>
-					<th width="90">OUT</th>
-					<th width="90">IN</th>
-					<th width="90">OUT</th>
-				</tr>
-                @if ($time_entries)
-                    <tr>
-                        <th rowspan="2" width="120">{{ $time_entries->date->format('m-d-Y') }}</td>
-                        <td width="90" align="center" >{{ $time_entries->am_in ? $time_entries->am_in->format('h:i A') : '' }}</td>
-                        <td width="90" align="center" >{{ $time_entries->am_out ? $time_entries->am_out->format('h:i A') : '' }}</td>
-                        <td width="90" align="center" >{{ $time_entries->pm_in ? $time_entries->pm_in->format('h:i A') : '' }}</td>
-                        <td width="90" align="center" >{{ $time_entries->pm_out ? $time_entries->pm_out->format('h:i A') : '' }}</td>
-                        @php
-                            $summary = calculateSummaryCos($user, $time_entries);
-                        @endphp
-                        <td align="center" > {{ formatHoursAndMinutes($summary['total_hours']) }}</td>
-                        <td align="center" >{{ ($summary['late_minutes'] > 0 ? formatTotalMonthLate($summary['late_minutes']) : '') }}</td>
-                        <td align="center" > {{ formatHoursAndMinutes($summary['undertime']) }}</td>
-                        <td align="center" > {{ formatHoursAndMinutes($summary['overtime']) }}</td>
-                    </tr>
-                @else
+        <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
+            <tr>
+                <th rowspan="2" width="120" >Date</th>
+                <th colspan="2">AM</th>
+                <th colspan="2">PM</th>
+                <th rowspan="2" width="90">Total Hours</th>
+                <th rowspan="2" width="90">Late</th>
+                <th rowspan="2" width="90">Undertime</th>
+                <th rowspan="2" width="90">Overtime</th>
+            </tr>
+            <tr>
+                <th width="90">IN</th>
+                <th width="90">OUT</th>
+                <th width="90">IN</th>
+                <th width="90">OUT</th>
+            </tr>
+            @if ($time_entries)
                 <tr>
-                    <td colspan="9" class="text-center">No Time Logs</td>
+                    <td rowspan="2" width="120" align="center">{{ $time_entries->date->format('m-d-Y') }}</td>
+                    <td width="90" align="center" >{{ $time_entries->am_in ? $time_entries->am_in->format('h:i A') : '' }}</td>
+                    <td width="90" align="center" >{{ $time_entries->am_out ? $time_entries->am_out->format('h:i A') : '' }}</td>
+                    <td width="90" align="center" >{{ $time_entries->pm_in ? $time_entries->pm_in->format('h:i A') : '' }}</td>
+                    <td width="90" align="center" >{{ $time_entries->pm_out ? $time_entries->pm_out->format('h:i A') : '' }}</td>
+                    @php
+                        $summary = calculateSummaryCos($user, $time_entries);
+                    @endphp
+                    <td align="center" > {{ formatHoursAndMinutes($summary['total_hours']) }}</td>
+                    <td align="center" >{{ ($summary['late_minutes'] > 0 ? formatTotalMonthLate($summary['late_minutes']) : '') }}</td>
+                    <td align="center" > {{ formatHoursAndMinutes($summary['undertime']) }}</td>
+                    <td align="center" > {{ formatHoursAndMinutes($summary['overtime']) }}</td>
                 </tr>
-                @endif
-            </table>
+            @else
+            <tr>
+                <td colspan="9" class="text-center">No Time Logs</td>
+            </tr>
+            @endif
+
+        </table>
+        <br>
+        <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="120" >Date</th>
+                <th >Accomplishment</th>
+            </tr>
+            <tr>
+                <td align="center">{{ $accomplishments[0]->date->format('m-d-Y') }}</td>
+                <td>
+                    <ul>
+                        @foreach($accomplishments as $accomplishment)
+                            <li>
+                                {{$accomplishment->accomplishment}}
+                            </li>
+                        @endforeach
+                    </ul>
+                </td>
+            </tr>
+            
+
+        </table>
+
+
     </div>
 	
 	<div class="header">

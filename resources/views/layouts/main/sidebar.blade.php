@@ -27,21 +27,21 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item ">
-            <a href="#" class="nav-link ">
+            <a href="{{ route('timein', ['division' => $division])}}" class="nav-link ">
               <i class="far fa-clock"></i>
               <p>
                 Time In
               </p>
             </a>
           </li>
-          <li class="nav-item ">
+          {{-- <li class="nav-item ">
             <a href="#" class="nav-link ">
               <i class="fas fa-tasks"></i>
               <p>
                 Tasks
               </p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

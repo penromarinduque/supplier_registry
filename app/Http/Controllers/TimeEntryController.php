@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accomplishment;
 use App\Models\MSDUserInfo;
 use App\Models\PAMOUserInfo;
 use App\Models\TimeEntry;
@@ -50,11 +51,13 @@ class TimeEntryController extends Controller
         }
         $user = $this->getUserByTinOrItemNo($user_id, $division);
         $time_entries = TimeEntry::where('user_id', $user->userID)->whereDate('date', $date)->first();
+        $accomplishments = Accomplishment::where('user_id', $user->userID)->whereDate('date', $date)->get();
         return view('timein.print-dtr', [
             'user' => $user,
             'division' => $division,
             'time_entries' => $time_entries,
-            'date' => $date
+            'date' => $date,
+            'accomplishments' => $accomplishments
         ]);
     }
 
