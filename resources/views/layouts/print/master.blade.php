@@ -10,49 +10,13 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('adminlte3/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{ asset('adminlte3/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+  {{-- <link rel="stylesheet" href="{{ asset('adminlte3/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}"> --}}
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('adminlte3/dist/css/adminlte.min.css') }}">
+  {{-- <link rel="stylesheet" href="{{ asset('adminlte3/dist/css/adminlte.min.css') }}"> --}}
+  @yield('styles')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
-
-  <!-- Preloader -->
-  {{-- <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__wobble" src="{{ asset('adminlte3/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
-  </div> --}}
-  @include('components.loader')
-
-  @include('layouts.main.navbar')
-
-  @include('layouts.main.sidebar')
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Alternative Attendance System</h1>
-            <h5>@yield('title')</h5>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            @yield('breadcrumb')
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <section class="content">
-      <div class="container-fluid">
-        @yield('content')
-      </div>
-    </section>
-  </div>
-  <!-- /.content-wrapper -->
-
-  @include('layouts.main.footer')
+<body class="">
+    @yield('content')
 </div>
 <!-- ./wrapper -->
 
