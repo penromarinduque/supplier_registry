@@ -20,7 +20,7 @@ class AccomplishmentController extends Controller
             'task_id' => ['required'],
             'user_no' => ['required'],
             'division' => ['required'],
-            'attachment' => ['nullable', 'file', 'max:2048']
+            'attachment' => ['nullable', 'file', 'max:10000']
         ]);
 
         return DB::transaction(function () use ($request) {
@@ -64,7 +64,7 @@ class AccomplishmentController extends Controller
         //
         $validator = Validator::make($request->all(), [
             'accomplishment' => ['required', 'string', 'max:1000'],
-            'attachment' => ['nullable', 'file', 'max:2048']
+            'attachment' => ['nullable', 'file', 'max:10000']
         ]);
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator, 'updateAccomplishment')->withInput()->with([
