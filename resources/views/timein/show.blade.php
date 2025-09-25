@@ -171,56 +171,6 @@
         </form>
     </div>
 </div>
-
-@endsection
-
-@section('script')
-    <script>
-        $(function(){
-            @if ($errors->any())
-                showAddEntryModal('{{ old('entry_type') }}');
-            @endif
-        })
-        function showAddEntryModal(entryType){
-            getLocation();
-            $('#addEntryModal #entry_type').val(entryType);
-            $('#addEntryModal #time').text(new Date().toLocaleTimeString());
-            $('#addEntryModal').modal('show');
-        }
-        
-        function getLocation() {
-            console.log("asd")
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            } else { 
-                $("#addEntryModal #location").val("Geolocation is not supported by this browser.");
-            }
-        }
-
-        function showPosition(position) {
-            $("#addEntryModal #location").val(
-                position.coords.latitude + "," + position.coords.longitude
-            );
-        }
-
-        function showError(error) {
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    $("#addEntryModal #location").val("Work from home (GPS denied)");
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    $("#addEntryModal #location").val("Work from home (GPS unavailable)");
-                    break;
-                case error.TIMEOUT:
-                    $("#addEntryModal #location").val("Work from home (GPS timed out)");
-                    break;
-                case error.UNKNOWN_ERROR:
-                    $("#addEntryModal #location").val("Work from home (no GPS)");
-                    break;
-            }
-        }
-
-    </script>
 @endsection
 
 @section('includes')
@@ -229,4 +179,5 @@
     @include('components.addAccomplishmentModal')
     @include('components.editAccomplishmentModal')
     @include('components.deleteConfirmationModal')
+    @include('components.addEntryModal')
 @endsection
