@@ -435,7 +435,7 @@
                 <tr>
                     <td align="center">
                         @if ($time_entries->am_in_capture)
-                            <img width="250" src="{{ asset('storage/public/captures/'.$time_entries->am_in_capture)}}" alt="">
+                            <img width="250" src="{{ asset('storage/captures/'.$time_entries->am_in_capture)}}" alt="">
                         @else
                             <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
                                 <p>No Captured image</p>
@@ -445,7 +445,7 @@
                     </td>
                     <td align="center">
                         @if ($time_entries->am_out_capture)
-                            <img width="250" src="{{ asset('storage/public/captures/'.$time_entries->am_out_capture)}}" alt="">
+                            <img width="250" src="{{ asset('storage/captures/'.$time_entries->am_out_capture)}}" alt="">
                         @else
                             <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
                                 <p>No Captured image</p>
@@ -460,7 +460,7 @@
                 <tr>
                     <td align="center">
                         @if ($time_entries->pm_in_capture)
-                            <img width="250" src="{{ asset('storage/public/captures/'.$time_entries->pm_in_capture)}}" alt="">
+                            <img width="250" src="{{ asset('storage/captures/'.$time_entries->pm_in_capture)}}" alt="">
                         @else
                             <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
                                 <p>No Captured image</p>
@@ -470,7 +470,7 @@
                     </td>
                     <td align="center">
                         @if ($time_entries->pm_in_capture)
-                            <img width="250" src="{{ asset('storage/public/captures/'.$time_entries->pm_in_capture)}}" alt="">
+                            <img width="250" src="{{ asset('storage/captures/'.$time_entries->pm_in_capture)}}" alt="">
                         @else
                             <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
                                 <p>No Captured image</p>
