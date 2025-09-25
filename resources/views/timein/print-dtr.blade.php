@@ -421,6 +421,67 @@
             @endforelse
         </table>
 
+        <div class="" style="page-break-before: always" style="margin: 5rem auto;">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h3 style="margin-top: 1rem;">Attachments</h3>
+            <table style="width: 100%;">
+                <tr>
+                    <td align="center">
+                        @if ($time_entries->am_in_capture)
+                            <img width="250" src="{{ asset('storage/captures/'.$time_entries->am_in_capture)}}" alt="">
+                        @else
+                            <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
+                                <p>No Captured image</p>
+                            </div>
+                        @endif
+                        <p>AM IN Capture</p>
+                    </td>
+                    <td align="center">
+                        @if ($time_entries->am_out_capture)
+                            <img width="250" src="{{ asset('storage/captures/'.$time_entries->am_out_capture)}}" alt="">
+                        @else
+                            <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
+                                <p>No Captured image</p>
+                            </div>
+                        @endif
+                        <p>AM OUT Capture</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        @if ($time_entries->pm_in_capture)
+                            <img width="250" src="{{ asset('storage/captures/'.$time_entries->pm_in_capture)}}" alt="">
+                        @else
+                            <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
+                                <p>No Captured image</p>
+                            </div>
+                        @endif
+                        <p>PM IN Capture</p>
+                    </td>
+                    <td align="center">
+                        @if ($time_entries->pm_in_capture)
+                            <img width="250" src="{{ asset('storage/captures/'.$time_entries->pm_in_capture)}}" alt="">
+                        @else
+                            <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
+                                <p>No Captured image</p>
+                            </div>
+                        @endif
+                        <p>PM OUT Capture</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
 
     </div>
 	
@@ -435,21 +496,21 @@
 @section('script')
 <script>
     $(document).ready(function () {
-			$(".name").change(function () {
-				var newID = ($(this).attr("id").slice(4, $(this).val().length));
-				$("#pstn" + newID).prop("selectedIndex", $(this).prop("selectedIndex"));
-				$("#print_name" + newID).html($(this).val());
-				$("#print_position" + newID).html($("#pstn" + newID).val());
-			})
-			.change();
+        $(".name").change(function () {
+            var newID = ($(this).attr("id").slice(4, $(this).val().length));
+            $("#pstn" + newID).prop("selectedIndex", $(this).prop("selectedIndex"));
+            $("#print_name" + newID).html($(this).val());
+            $("#print_position" + newID).html($("#pstn" + newID).val());
+        })
+        .change();
 
-			$(".position").change(function () {
-				var newID = ($(this).attr("id").slice(4, $(this).val().length));
-				$("#name" + newID).prop("selectedIndex", $(this).prop("selectedIndex"));
-				$("#print_name" + newID).html($("#name" + newID).val());
-				$("#print_position" + newID).html($(this).val());
-			})
-			.change();
+        $(".position").change(function () {
+            var newID = ($(this).attr("id").slice(4, $(this).val().length));
+            $("#name" + newID).prop("selectedIndex", $(this).prop("selectedIndex"));
+            $("#print_name" + newID).html($("#name" + newID).val());
+            $("#print_position" + newID).html($(this).val());
+        })
+        .change();
     })
 </script>
 @endsection

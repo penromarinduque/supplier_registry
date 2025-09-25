@@ -29,7 +29,7 @@
                 </div>
                 <div class="mb-2">
                     <label for="date">Attachment</label>
-                    <input type="file" class="form-control-file" name="attachment">
+                    <input type="file" class="form-control-file" name="attachment" accept="image/*,application/pdf">
                     @error('attachment', 'updateAccomplishment')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror

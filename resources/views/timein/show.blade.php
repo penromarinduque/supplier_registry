@@ -129,48 +129,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="addEntryModal">
-    <div class="modal-dialog">
-        <form class="modal-content" action="{{ route('timeEntries.store') }}" method="POST">
-            <div class="modal-header">
-                <h4 class="modal-title">Log Time</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @if ($errors->any())
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li class="text-danger">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                @endif
-                @csrf
-                <input type="hidden" name="user_id" value="{{ $user->userID }}">
-                <input type="hidden" name="user_no" value="{{ $user->status == 'COS' ? $user->tin : $user->SSN }}">
-                <input type="hidden" name="division" value="{{ $division }}">
-                <input type="hidden" name="entry_type" id="entry_type" value="{{ old('entry_type') }}">
-                <input type="hidden" name="location" id="location" value="{{ old('location') }}">
-                <div class="mb2">
-                    <h5 class="text-center" id="time"></h5>
-                </div>
-                <div class="mb-2">
-                    <label for="date">Location</label>
-                    <input class="form-control" id="location" disabled value="{{ old('location') }}">
-                    @error('location')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary btn-submit">Save Time Log</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 @endsection
 
 @section('includes')

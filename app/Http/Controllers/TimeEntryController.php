@@ -8,6 +8,8 @@ use App\Models\PAMOUserInfo;
 use App\Models\TimeEntry;
 use App\Models\TSDUserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class TimeEntryController extends Controller
 {
@@ -18,34 +20,50 @@ class TimeEntryController extends Controller
             'user_id' => 'required',
             'user_no' => 'required',
             'entry_type' => 'required|in:pm_in,pm_out,am_in,am_out',
+            'photo' => 'nullable'
         ]);
-        $divisions = [
-            'pamo' => 'pamo',
-            'main' => 'msd',
-            'tsd' => 'tsd'
-        ];
-
-        $time_entry = TimeEntry::where('user_id', $request->user_id)->whereDate('date', now())->first();
-        if(!$time_entry && $request->entry_type != 'am_in') {
-            abort(403, 'Invalid entry type.');
-        }
-        if(!$time_entry){
-            TimeEntry::create([
-                'user_id' => $request->user_id,
-                'user_no' => $request->user_no,
-                'am_in_location' => $request->location,
-                'date' => now(),
-                'am_in' => now(),
-                'division' => $divisions[$request->division]
-            ]);
-        } else {
-            $time_entry->update([
-                $request->entry_type => now(),
-                $request->entry_type . '_location' => $request->location
-            ]);
-        }
-        
-        return redirect()->back()->with('success', 'Time entry saved.');
+        return DB::transaction(function () use ($request) {
+            $divisions = [
+                'pamo' => 'pamo',
+                'main' => 'msd',
+                'tsd' => 'tsd'
+            ];
+    
+            $time_entry = TimeEntry::where('user_id', $request->user_id)->whereDate('date', now())->first();
+            if(!$time_entry && $request->entry_type != 'am_in') {
+                abort(403, 'Invalid entry type.');
+            }
+            if(!$time_entry){
+                $time_entry = TimeEntry::create([
+                    'user_id' => $request->user_id,
+                    'user_no' => $request->user_no,
+                    'am_in_location' => $request->location,
+                    'date' => now(),
+                    'am_in' => now(),
+                    'division' => $divisions[$request->division]
+                ]);
+            } else {
+                $time_entry->update([
+                    $request->entry_type => now(),
+                    $request->entry_type . '_location' => $request->location
+                ]);
+            }
+    
+            if($request->has('photo') && $request->photo != '') {
+                // Remove "data:image/png;base64,"
+                $photo = $request->photo;
+                $photo = str_replace('data:image/png;base64,', '', $photo);
+                $photo = str_replace(' ', '+', $photo);
+    
+                $fileName = uniqid() . '.png';
+                Storage::disk('public')->put('captures/' . $fileName, base64_decode($photo));
+                $time_entry->update([
+                    $request->entry_type . '_capture' => $fileName
+                ]);
+            }
+            
+            return redirect()->back()->with('success', 'Time entry saved.');
+        });
     }
 
     public function printDtr(Request $request) {
