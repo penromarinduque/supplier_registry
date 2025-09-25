@@ -23,6 +23,8 @@ Route::group(['prefix' => 'accomplishments', 'as' => 'accomplishments.'], functi
     Route::get('edit/{id}', [AccomplishmentController::class, 'edit'])->name('edit');
     Route::put('update/{id}', [AccomplishmentController::class, 'update'])->name('update');
     Route::delete('{id}', [AccomplishmentController::class, 'delete'])->name('delete');
+    Route::get('download-file/{id}', [AccomplishmentController::class, 'downloadFile'])->name('downloadFile');
+    Route::delete('delete-file/{id}', [AccomplishmentController::class, 'deleteFile'])->name('deleteFile');
 });
 
 Route::group(['prefix' => 'tasks', 'as' => 'tasks.'], function () {

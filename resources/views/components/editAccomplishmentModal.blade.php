@@ -1,6 +1,6 @@
 <div class="modal fade" id="editAccomplishmentModal">
     <div class="modal-dialog">
-        <form class="modal-content" action="" method="POST">
+        <form class="modal-content" action="" method="POST" enctype="multipart/form-data">
             <div class="modal-header">
                 <h4 class="modal-title">Edit Accomplishment</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -24,6 +24,13 @@
                     <label for="date">Accomplishment</label>
                     <textarea class="form-control" name="accomplishment" id="accomplishment">{{ old('accomplishment') }}</textarea>
                     @error('accomplishment', 'updateAccomplishment')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-2">
+                    <label for="date">Attachment</label>
+                    <input type="file" class="form-control-file" name="attachment">
+                    @error('attachment', 'updateAccomplishment')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>

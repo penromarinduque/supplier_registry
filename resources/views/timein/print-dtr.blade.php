@@ -322,10 +322,14 @@
                     @php
                         $summary = calculateSummaryCos($user, $time_entries);
                     @endphp
-                    <td align="center" > {{ formatHoursAndMinutes($summary['total_hours']) }}</td>
+                    <td align="center" ></td>
+                    <td align="center" ></td>
+                    <td align="center" ></td>
+                    <td align="center" ></td>
+                    {{-- <td align="center" > {{ formatHoursAndMinutes($summary['total_hours']) }}</td>
                     <td align="center" >{{ ($summary['late_minutes'] > 0 ? formatTotalMonthLate($summary['late_minutes']) : '') }}</td>
                     <td align="center" > {{ formatHoursAndMinutes($summary['undertime']) }}</td>
-                    <td align="center" > {{ formatHoursAndMinutes($summary['overtime']) }}</td>
+                    <td align="center" > {{ formatHoursAndMinutes($summary['overtime']) }}</td> --}}
                 </tr>
             @else
             <tr>

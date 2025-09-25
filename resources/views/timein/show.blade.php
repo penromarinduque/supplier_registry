@@ -98,11 +98,19 @@
                     <td>
                         {{-- <ul> --}}
                             @foreach ($task->accomplishments as $accomplishment)
+                            <div class="p-2 py-3" >
                                 <div class="py-1">
                                     <button class="btn btn-sm btn-outline-danger" title="Delete Accomplishment" onclick="confirmDelete('{{ route('accomplishments.delete', $accomplishment->id) }}', 'Are you sure you want to delete this accomplishment?')"><i class="fas fa-trash " style="font-size: 10px "></i></button>
                                     <button class="btn btn-sm btn-outline-secondary" title="Edit Accomplishment" onclick="showUpdateAccomplishmentModal('{{ $accomplishment->accomplishment }}', '{{ route('accomplishments.update', $accomplishment->id) }}')"><i class="fas fa-pencil-alt " style="font-size: 10px"></i></button>
-                                    &nbsp;&nbsp;&nbsp;{{ $accomplishment->accomplishment }} 
+                                    @if ($accomplishment->file)
+                                        <a class="btn btn-sm btn-outline-secondary" title="Download Attachment" href="{{ route('accomplishments.downloadFile', $accomplishment->id) }}"><i class="fas fa-paperclip " style="font-size: 10px"></i></a>
+                                        <button class="btn btn-outline-danger btn-sm" onclick="confirmDelete('{{ route('accomplishments.deleteFile', $accomplishment->id) }}', 'Are you sure you want to delete this file?')" ><i class="fas fa-unlink " style="font-size: 10px"></i></button>
+                                    @endif
                                 </div>
+                                <p>
+                                    {{ $accomplishment->accomplishment }} 
+                                </p>
+                            </div>
                             @endforeach
                         {{-- </ul> --}}
                     </td>
