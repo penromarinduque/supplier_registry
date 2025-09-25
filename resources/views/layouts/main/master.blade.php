@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{ asset('adminlte3/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminlte3/dist/css/adminlte.min.css') }}">
+  <link rel="shortcut icon" href="{{ asset('adminlte3/dist/img/favico.ico') }}" type="image/x-icon">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">

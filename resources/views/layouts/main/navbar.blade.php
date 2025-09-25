@@ -1,6 +1,6 @@
 @php
     $divisions = [
-      'main' => 'Office of the PENRO/Management Services Division',
+      'main' => 'Office of the PENRO & Management Services Division',
       'tsd' => 'Technical Services Division',
       'pamo' => 'Protected Area Management Office'
     ];

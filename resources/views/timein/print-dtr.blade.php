@@ -291,7 +291,7 @@
                 </td>
                 <td>
                     <p>Status: <strong>{{ $user->status }}</strong></p>
-                    <p>Date : <strong>{{ now()->format('m/d/Y') }}</strong></p>
+                    <p>Date : <strong>{{ date('F j, Y', strtotime($date)) }}</strong></p>
                 </td>
             </tr>
         </table>

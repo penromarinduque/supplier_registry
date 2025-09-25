@@ -24,7 +24,7 @@
         }
 
         .logo-container img {
-            max-width: 200px;
+            max-width: 140px;
             height: auto;
             transition: transform 0.3s ease;
         }
@@ -116,7 +116,8 @@
         </div>
 
         <div class="text-center mb-5">
-            <h2 class="main-title">Alternative Attendance System</h2>
+            <h2 class="main-title">Online Attendance System</h2>
+            <h5>(For Alternative Working Arrangement)</h5>
         </div>
 
         <!-- Cards Section -->
@@ -127,7 +128,7 @@
                     <div class="card h-100 text-center p-4">
                         <div class="card-body">
                             <i class="bi bi-building card-icon"></i>
-                            <h4 class="card-title text-dark">Office of the PENRO/Management Services Division</h4>
+                            <h4 class="card-title text-dark">Office of the PENRO & Management Services Division</h4>
                         </div>
                     </div>
                 </a>

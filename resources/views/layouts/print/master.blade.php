@@ -43,6 +43,7 @@
 {{-- <script src="{{ asset('adminlte3/dist/js/demo.js') }}"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('adminlte3/dist/js/pages/dashboard2.js') }}"></script>
+<link rel="shortcut icon" href="{{ asset('adminlte3/dist/img/favico.ico') }}" type="image/x-icon">
 @yield('script')
 <script>
     $(document).ready(function() {
