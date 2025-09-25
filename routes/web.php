@@ -33,3 +33,8 @@ Route::group(['prefix' => 'tasks', 'as' => 'tasks.'], function () {
     Route::put('update/{id}', [TaskController::class, 'update'])->name('update');
     Route::delete('{id}', [TaskController::class, 'delete'])->name('delete');
 });
+
+Route::group(['prefix' => 'storages', 'as' => 'storage.'], function () {
+    Route::get('view-image/{filename}', [AccomplishmentController::class, 'viewImage'])->name('viewImage');
+    
+});

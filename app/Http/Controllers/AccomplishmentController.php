@@ -139,4 +139,19 @@ class AccomplishmentController extends Controller
             'success' => 'File deleted successfully'
         ]);
     }
+
+    public function viewImage($filename)
+    {
+
+
+        $path = 'captures/' . $filename;
+
+        if (!Storage::disk('public')->exists($path)) {
+            return redirect()->back()->with('error', 'Image file not found');
+        }
+
+        // This automatically sets the correct Content-Type
+        return Storage::disk('public')->response($path);
+    }
+
 }
