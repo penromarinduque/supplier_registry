@@ -32,12 +32,12 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="mb-2">
+                {{-- <div class="mb-2">
                     <label for="photo">Photo</label>
                     <canvas id="snapshot" width="640" height="480" class="border"></canvas>
                     <video id="camera" width="100%" height="auto" autoplay></video>
                     <button id="takePhoto" class="btn btn-primary mt-2">Capture</button>
-                </div>
+                </div> --}}
             </div>
             <div class="modal-footer">
                 <div class="d-flex justify-content-end">
