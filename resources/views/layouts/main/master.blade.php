@@ -38,7 +38,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Alternative Attendance System</h1>
+            <h1 class="m-0">Online Attendance System</h1>
             <h5>@yield('title')</h5>
           </div><!-- /.col -->
           <div class="col-sm-6">

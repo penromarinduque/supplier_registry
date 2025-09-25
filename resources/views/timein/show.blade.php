@@ -7,11 +7,11 @@
     </ol>
 @endsection
 @section('content')
-<div class="mx-auto" style="max-width: 800px">
+<div class="mx-auto" style="max-width: 1000px">
     <h4 class="text-center">Welcome back <span class="text-primary">{{ $user->name }}</span>!</h4>
     <p class="text-muted text-center">These are your time logs for the day</p>
     <div class="table-responsive">
-        <table class="table">
+        <table class="table" style="min-width: 800px; width: 100%">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -114,7 +114,7 @@
                             @endforeach
                         {{-- </ul> --}}
                     </td>
-                    <td align="center">
+                    <td align="center" width="250px">
                         <button class="btn btn-sm btn-outline-primary" onclick="showAddAccomplishmentModal('{{ $task->id }}')">Add Accomplishment</button>
                         <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('{{ route('tasks.delete', $task->id) }}', 'Are you sure you want to delete this task?')"><i class="fas fa-trash"></i></button>
                         <button class="btn btn-sm btn-outline-secondary" onclick="showEditTaskModal('{{ $task->task }}', '{{ route('tasks.update', $task->id) }}')"><i class="fas fa-pencil-alt"></i></button>

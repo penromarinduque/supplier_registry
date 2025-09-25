@@ -3,7 +3,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <style type="text/css">
     * {
-        font-family: Arial, sans-serif;
+        font-family: Arial, sans-serif !important;
     }
 
     .employee-summary {
@@ -21,7 +21,7 @@
         font-size: 16px;
     }
 
-    input {
+    input, a {
         text-align: center;
         width: 80px;
         border: none;
@@ -129,7 +129,7 @@
             font-size: 12px;
         }
 
-        input {
+        input, a {
             font-size: 12px;
         }
     }
@@ -276,7 +276,7 @@
     <div style="position: absolute; right: 10px;" class="print-buttons">
         
         <input type="button" value="Print" onclick=" window.print()" style="padding: 8px;" />
-        <input type="button" value="Cancel" onclick="window.close();" style="padding: 8px;">
+        <a href="{{ route('timein.show', ['division' => request('division'), 'user_id' => $user->status == 'COS' ? $user->tin : $user->SSN]) }}" style="padding: 8px;">Close</a>
     </div>
     <div id="previewArea" style="margin-top: 40px;"></div>
     <div class="break">
