@@ -73,7 +73,7 @@
     }
 
     .break {
-        page-break-before: always;
+        /* page-break-before: always; */
         min-height: 500px;
     }
 
@@ -448,11 +448,11 @@
             <br>
             <br>
             <h3 style="margin-top: 1rem;">Attachments</h3>
-            <table style="width: 100%; max-width: 720px;">
+            <table style="width: 100%; max-width: 720px; margin: 0px auto;">
                 <tr>
                     <td align="center">
                         @if ($time_entries->am_in_capture)
-                            <img width="250" src="{{ route('storage.viewImage', $time_entries->am_in_capture)}}" alt="">
+                            <img width="270" src="{{ route('storage.viewImage', $time_entries->am_in_capture)}}" alt="">
                         @else
                             <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
                                 <p>No Captured image</p>
