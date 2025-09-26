@@ -47,10 +47,16 @@
     }
 
     .header {
-        margin: 0px;
+        margin: 0px auto !important;
         padding: 0px;
         font-size: 16px;
         font-weight: bold;
+        width: 100vw;
+    }
+
+    .header img {
+        margin: 0px auto !important;
+        display: block;
     }
 
     .green {
@@ -81,12 +87,22 @@
         .print-view {
             display: none;
         }
+
+        .header img {
+            margin: 0px auto !important;
+            display: block;
+        }
     }
 
     @media print {
         .hr {
             display: none;
         }
+
+        .header img {
+        margin: 0px auto !important;
+        display: block;
+    }
 
         .print-buttons {
             display: none;
@@ -115,6 +131,7 @@
 
         .header {
             position: fixed;
+            
             top: -18px;
             /* Adjust this value to move the header */
             width: 100%;
@@ -431,7 +448,7 @@
             <br>
             <br>
             <h3 style="margin-top: 1rem;">Attachments</h3>
-            <table style="width: 100%;">
+            <table style="width: 100%; max-width: 720px;">
                 <tr>
                     <td align="center">
                         @if ($time_entries->am_in_capture)
@@ -486,9 +503,7 @@
     </div>
 	
 	<div class="header">
-		<table width="720" class="title-header" cellpadding="0" cellspacing="0">
-			<img width="740" src="{{ asset('header.png')}}" alt="">
-		</table>
+        <img class="" width="740" src="{{ asset('header.png')}}" alt="">
 	</div>
 </section>
 @endsection

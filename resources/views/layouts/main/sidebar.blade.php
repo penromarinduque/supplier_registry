@@ -34,6 +34,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a href="{{ route('userGuides', ['division' => $division])}}" class="nav-link ">
+              <i class="far fa-question-circle"></i>
+              <p>
+                User Guides
+              </p>
+            </a>
+          </li>
           {{-- <li class="nav-item ">
             <a href="#" class="nav-link ">
               <i class="fas fa-tasks"></i>

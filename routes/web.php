@@ -4,6 +4,7 @@ use App\Http\Controllers\AccomplishmentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimeEntryController;
 use App\Http\Controllers\TimeInController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,3 +39,8 @@ Route::group(['prefix' => 'storages', 'as' => 'storage.'], function () {
     Route::get('view-image/{filename}', [AccomplishmentController::class, 'viewImage'])->name('viewImage');
     
 });
+
+Route::get('/user-guide', function (Request $request) { return view('user-guide', [
+    'title' => 'User Guide',
+    'division' => $request->input('division'),
+]); })->name('userGuides');
