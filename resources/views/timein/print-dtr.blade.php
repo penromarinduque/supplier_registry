@@ -297,148 +297,150 @@
     </div>
     <div id="previewArea" style="margin-top: 40px;"></div>
     <div class="break">
-        <p align="center" style="font-size: 18px;"><strong>DAILY TIME RECORD </strong></p>
-        <table width="720" align="center">
-            <tr>
-                <td>
-                    <p>Attendance ID: <strong>{{ $user->userID }}</strong></p>
-                    <p>Employee ID: <strong>{{ $user->SSN }}</strong></p>
-                    <p>Employee: <strong>{{ $user->name }}</strong></p>
-                    <p>Position/Designation: <strong>{{ $user->position }}</strong></p>
-                </td>
-                <td>
-                    <p>Status: <strong>{{ $user->status }}</strong></p>
-                    <p>Date : <strong>{{ date('F j, Y', strtotime($date)) }}</strong></p>
-                </td>
-            </tr>
-        </table>
-
-        <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
-            <tr>
-                <th rowspan="2" width="120" >Date</th>
-                <th colspan="2">AM</th>
-                <th colspan="2">PM</th>
-                <th rowspan="2" width="90">Total Hours</th>
-                <th rowspan="2" width="90">Late</th>
-                <th rowspan="2" width="90">Undertime</th>
-                <th rowspan="2" width="90">Overtime</th>
-            </tr>
-            <tr>
-                <th width="90">IN</th>
-                <th width="90">OUT</th>
-                <th width="90">IN</th>
-                <th width="90">OUT</th>
-            </tr>
-            @if ($time_entries)
+        <div class="" style="width: 100%; max-width: 720px; margin: 0px auto;">
+            <p align="center" style="font-size: 18px;"><strong>DAILY TIME RECORD </strong></p>
+            <table width="720" align="center">
                 <tr>
-                    <td rowspan="2" width="120" align="center">{{ $time_entries->date->format('m-d-Y') }}</td>
-                    <td width="90" align="center" >{{ $time_entries->am_in ? $time_entries->am_in->format('h:i A') : '' }}</td>
-                    <td width="90" align="center" >{{ $time_entries->am_out ? $time_entries->am_out->format('h:i A') : '' }}</td>
-                    <td width="90" align="center" >{{ $time_entries->pm_in ? $time_entries->pm_in->format('h:i A') : '' }}</td>
-                    <td width="90" align="center" >{{ $time_entries->pm_out ? $time_entries->pm_out->format('h:i A') : '' }}</td>
-                    @php
-                        $summary = calculateSummaryCos($user, $time_entries);
-                    @endphp
-                    <td align="center" ></td>
-                    <td align="center" ></td>
-                    <td align="center" ></td>
-                    <td align="center" ></td>
-                    {{-- <td align="center" > {{ formatHoursAndMinutes($summary['total_hours']) }}</td>
-                    <td align="center" >{{ ($summary['late_minutes'] > 0 ? formatTotalMonthLate($summary['late_minutes']) : '') }}</td>
-                    <td align="center" > {{ formatHoursAndMinutes($summary['undertime']) }}</td>
-                    <td align="center" > {{ formatHoursAndMinutes($summary['overtime']) }}</td> --}}
+                    <td>
+                        <p>Attendance ID: <strong>{{ $user->userID }}</strong></p>
+                        <p>Employee ID: <strong>{{ $user->SSN }}</strong></p>
+                        <p>Employee: <strong>{{ $user->name }}</strong></p>
+                        <p>Position/Designation: <strong>{{ $user->position }}</strong></p>
+                    </td>
+                    <td>
+                        <p>Status: <strong>{{ $user->status }}</strong></p>
+                        <p>Date : <strong>{{ date('F j, Y', strtotime($date)) }}</strong></p>
+                    </td>
                 </tr>
-            @else
-            <tr>
-                <td colspan="9" class="text-center">No Time Logs</td>
-            </tr>
-            @endif
-
-        </table>
-        <br><br><br><br>
-        <!-- Supervisor's Signature -->
-        <table width="720" align="center" style="margin-top: -20px; border-collapse: collapse;">
-            <tr>
-                <!-- style="border-top: 1px solid #ccc; padding: 15px;" -->
-                <td align="center" width="340">
-                    <div style="margin-bottom: 15px;">
-                        <p style="margin-bottom: 40px; font-size: 13px;">I certify that the entries on this record which
-                            were made by myself daily at the time of arrival and departure from the office are true and
-                            correct.
-                        </p>
-                        <div style="margin-top: 10px;">
-                            <span
-                                style="font-weight: bold; font-size: 14px;">{{ $user->name }}</span><br />
-                            <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
-                            <span style="font-size: 13px;">{{ $user->position }}</span>
-                        </div>
-                    </div>
-                </td>
-                <td width="40">&nbsp;</td>
-                <!-- style="border-top: 1px solid #ccc; padding: 15px;" -->
-                <td width="340">
-                    <div style="text-align: center;">
-                        <p style="margin-bottom: 55px; font-size: 13px;">Verified as to the prescribed office hours.</p>
-                        <div style="margin-top: 10px;">
-                            <div class="screen-view">
-                                <select class="name" id="name{{ $user->badgeNumber }}"
-                                    style="width: 280px; text-align: center; text-transform: uppercase; font-weight: bold;">
-                                    <option value="IMELDA M. DIAZ" >IMELDA M. DIAZ</option>
-                                    <option value="GEMMA P. DELOS REYES" {{ $division == 'main' ? 'selected' : '' }}>GEMMA P. DELOS REYES</option>
-                                    <option value="CYNTHIA U. LOZANO" {{ $division == 'tsd' ? 'selected' : '' }}>CYNTHIA U. LOZANO</option>
-                                    <option value="NANNETTE M. JOVEN" {{ $division == 'pamo' ? 'selected' : '' }}>NANNETTE M. JOVEN</option>
-                                </select>
+            </table>
+    
+            <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th rowspan="2" width="120" >Date</th>
+                    <th colspan="2">AM</th>
+                    <th colspan="2">PM</th>
+                    <th rowspan="2" width="90">Total Hours</th>
+                    <th rowspan="2" width="90">Late</th>
+                    <th rowspan="2" width="90">Undertime</th>
+                    <th rowspan="2" width="90">Overtime</th>
+                </tr>
+                <tr>
+                    <th width="90">IN</th>
+                    <th width="90">OUT</th>
+                    <th width="90">IN</th>
+                    <th width="90">OUT</th>
+                </tr>
+                @if ($time_entries)
+                    <tr>
+                        <td rowspan="2" width="120" align="center">{{ $time_entries->date->format('m-d-Y') }}</td>
+                        <td width="90" align="center" >{{ $time_entries->am_in ? $time_entries->am_in->format('h:i A') : '' }}</td>
+                        <td width="90" align="center" >{{ $time_entries->am_out ? $time_entries->am_out->format('h:i A') : '' }}</td>
+                        <td width="90" align="center" >{{ $time_entries->pm_in ? $time_entries->pm_in->format('h:i A') : '' }}</td>
+                        <td width="90" align="center" >{{ $time_entries->pm_out ? $time_entries->pm_out->format('h:i A') : '' }}</td>
+                        @php
+                            $summary = calculateSummaryCos($user, $time_entries);
+                        @endphp
+                        <td align="center" ></td>
+                        <td align="center" ></td>
+                        <td align="center" ></td>
+                        <td align="center" ></td>
+                        {{-- <td align="center" > {{ formatHoursAndMinutes($summary['total_hours']) }}</td>
+                        <td align="center" >{{ ($summary['late_minutes'] > 0 ? formatTotalMonthLate($summary['late_minutes']) : '') }}</td>
+                        <td align="center" > {{ formatHoursAndMinutes($summary['undertime']) }}</td>
+                        <td align="center" > {{ formatHoursAndMinutes($summary['overtime']) }}</td> --}}
+                    </tr>
+                @else
+                <tr>
+                    <td colspan="9" class="text-center">No Time Logs</td>
+                </tr>
+                @endif
+    
+            </table>
+            <br><br><br><br>
+            <!-- Supervisor's Signature -->
+            <table width="720" align="center" style="margin-top: -20px; border-collapse: collapse;">
+                <tr>
+                    <!-- style="border-top: 1px solid #ccc; padding: 15px;" -->
+                    <td align="center" width="340">
+                        <div style="margin-bottom: 15px;">
+                            <p style="margin-bottom: 40px; font-size: 13px;">I certify that the entries on this record which
+                                were made by myself daily at the time of arrival and departure from the office are true and
+                                correct.
+                            </p>
+                            <div style="margin-top: 10px;">
+                                <span
+                                    style="font-weight: bold; font-size: 14px;">{{ $user->name }}</span><br />
                                 <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
-                                <select class="position" id="pstn{{ $user->badgeNumber }}"
-                                    style="width: 280px; text-align: center;">
-                                    <option value="OIC, PENR Officer">PENR Officer</option>
-                                    <option value="In-Charge, Management Services Division" {{ $division == 'main' ? 'selected' : '' }}>In-Charge, Management Services Division</option>
-                                    <option value="Chief, Technical Services Division" {{ $division == 'tsd' ? 'selected' : '' }}>Chief, Technical Services Division</option>
-                                    <option value="Forester III/PASu, MWS" {{ $division == 'pamo' ? 'selected' : '' }}>Forester III/PASu, MWS</option>
-                                </select>
-                            </div>
-                            <div class="print-view">
-                                <span class="print-super" style="font-weight: bold; font-size: 14px;"
-                                    id="print_name{{ $user->badgeNumber }}"></span>
-                                <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
-                                <span class="print-position" style="font-size: 13px;"
-                                    id="print_position{{ $user->badgeNumber }}"></span>
+                                <span style="font-size: 13px;">{{ $user->position }}</span>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div style="font-size: 10px; margin-top: 30px;">
-            <i>
-                <p style="font-size: 10px; opacity: 0.5;"><span> <strong>Reminder: </strong></span> Please return within
-                    5 days together with the required
-                    supporting
-                    documents (i.e. Special Order, Travel Orders, Notice of Meeting, etc.)
-                </p>
-            </i>
-        </div>
+                    </td>
+                    <td width="40">&nbsp;</td>
+                    <!-- style="border-top: 1px solid #ccc; padding: 15px;" -->
+                    <td width="340">
+                        <div style="text-align: center;">
+                            <p style="margin-bottom: 55px; font-size: 13px;">Verified as to the prescribed office hours.</p>
+                            <div style="margin-top: 10px;">
+                                <div class="screen-view">
+                                    <select class="name" id="name{{ $user->badgeNumber }}"
+                                        style="width: 280px; text-align: center; text-transform: uppercase; font-weight: bold;">
+                                        <option value="IMELDA M. DIAZ" >IMELDA M. DIAZ</option>
+                                        <option value="GEMMA P. DELOS REYES" {{ $division == 'main' ? 'selected' : '' }}>GEMMA P. DELOS REYES</option>
+                                        <option value="CYNTHIA U. LOZANO" {{ $division == 'tsd' ? 'selected' : '' }}>CYNTHIA U. LOZANO</option>
+                                        <option value="NANNETTE M. JOVEN" {{ $division == 'pamo' ? 'selected' : '' }}>NANNETTE M. JOVEN</option>
+                                    </select>
+                                    <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
+                                    <select class="position" id="pstn{{ $user->badgeNumber }}"
+                                        style="width: 280px; text-align: center;">
+                                        <option value="OIC, PENR Officer">PENR Officer</option>
+                                        <option value="In-Charge, Management Services Division" {{ $division == 'main' ? 'selected' : '' }}>In-Charge, Management Services Division</option>
+                                        <option value="Chief, Technical Services Division" {{ $division == 'tsd' ? 'selected' : '' }}>Chief, Technical Services Division</option>
+                                        <option value="Forester III/PASu, MWS" {{ $division == 'pamo' ? 'selected' : '' }}>Forester III/PASu, MWS</option>
+                                    </select>
+                                </div>
+                                <div class="print-view">
+                                    <span class="print-super" style="font-weight: bold; font-size: 14px;"
+                                        id="print_name{{ $user->badgeNumber }}"></span>
+                                    <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
+                                    <span class="print-position" style="font-size: 13px;"
+                                        id="print_position{{ $user->badgeNumber }}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="font-size: 10px; margin-top: 30px;">
+                <i>
+                    <p style="font-size: 10px; opacity: 0.5;"><span> <strong>Reminder: </strong></span> Please return within
+                        5 days together with the required
+                        supporting
+                        documents (i.e. Special Order, Travel Orders, Notice of Meeting, etc.)
+                    </p>
+                </i>
+            </div>
             <br>
-        <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
-            <tr>
-                <th style="padding:5px" width="120" >Date</th>
-                <th style="padding:5px" >Task</th>
-                <th style="padding:5px" >Accomplishment</th>
-            </tr>
-            @forelse ($accomplishments as $accomplishment => $item)
+            <table class="employee-summary" border="1" style="border-collapse: collapse;" align="center" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td style="padding:5px">{{ $item->date->format('m-d-Y') }}</td>
-                    <td style="padding:5px">{{ $item->task->task }}</td>
-                    <td style="padding:5px">{{ $item->accomplishment }}</td>
+                    <th style="padding:5px" width="80" >Date</th>
+                    <th style="padding:5px" >Task</th>
+                    <th style="padding:5px" >Accomplishment</th>
                 </tr>
-            @empty
-                <tr>
-                    <td style="padding:5px" colspan="3">No Accomplishments</td>
-                </tr>
-            @endforelse
-        </table>
+                @forelse ($accomplishments as $accomplishment => $item)
+                    <tr>
+                        <td style="padding:5px" align="center">{{ $item->date->format('m-d-Y') }}</td>
+                        <td style="padding:5px">{{ $item->task->task }}</td>
+                        <td style="padding:5px">{{ $item->accomplishment }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td style="padding:5px" colspan="3">No Accomplishments</td>
+                    </tr>
+                @endforelse
+            </table>
+        </div>
 
-        <div class="" style="page-break-before: always" style="margin: 5rem auto;">
+        <div class="" style="width: 100%; max-width: 720px; margin: 0px auto; page-break-before: always">
             <br>
             <br>
             <br>
@@ -448,7 +450,7 @@
             <br>
             <br>
             <h3 style="margin-top: 1rem;">Attachments</h3>
-            <table style="width: 100%; max-width: 720px; margin: 0px auto;">
+            <table style="width: 100%;  margin: 0px auto;">
                 <tr>
                     <td align="center">
                         @if ($time_entries->am_in_capture)
