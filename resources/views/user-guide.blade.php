@@ -10,7 +10,7 @@
             <li>On your laptop or mobile phone, launch a web browser (Google Chrome, Safari, or Microsoft Edge).</li>
             <li>Go to the system link. Visit: 👉 https://aas.penromarinduque.gov.ph/</li>
             <li>Select your Office/Division where you belong.</li>
-            <li>Log in with your credentials. For Permanent Officials/Employees: Enter your Plantilla Item Number (e.g., OSEC-DENRB-ADAS2-001-2004). For COS: Enter your TIN (e.g., 000-000-0000).</li>
+            <li>Log in with your credentials. For Permanent Officials/Employees: Enter your Plantilla Item Number (e.g., OSEC-DENRB-ADAS2-001-2004). For COS: Enter your TIN (e.g., 000-000-000-0000).</li>
             <li>Log your attendance. Click the button that corresponds to the time of day: AM IN, AM OUT, PM IN, PM OUT.</li>
             <li>Allow permissions. 
             *Grant the system access to your location and camera. Verify your location. Wait for the system to capture your GPS location (visible in the location bar).

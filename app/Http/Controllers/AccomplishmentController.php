@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Accomplishment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +18,6 @@ class AccomplishmentController extends Controller
         //
         $request->validateWithBag('addAccomplishment', [
             'accomplishment' => ['required', 'string', 'max:1000'],
-            'user_id' => ['required'],
             'task_id' => ['required'],
             'user_no' => ['required'],
             'division' => ['required'],
@@ -26,10 +27,10 @@ class AccomplishmentController extends Controller
         return DB::transaction(function () use ($request) {
             $accomplishment = Accomplishment::create([
                 'accomplishment' => $request->input('accomplishment'),
-                'user_id' => $request->input('user_id'),
+                'user_id' => Auth::user()->empInfo->userID,
                 'task_id' => $request->input('task_id'),
-                'user_no' => $request->input('user_no'),
-                'division' => $request->input('division'),
+                'user_no' => Auth::user()->username,
+                'division' => Auth::user()->empInfo->division,
                 'date' => now(),
             ]);
             if($request->hasFile('attachment')) {
@@ -55,6 +56,7 @@ class AccomplishmentController extends Controller
                 'error' => 'Accomplishment not found'
             ]);
         }
+        Gate::authorize('update', $accomplishment);
         return view('timein.edit-accomplishment', [
             'accomplishment' => $accomplishment
         ]);
@@ -71,7 +73,7 @@ class AccomplishmentController extends Controller
                 'url' => route('accomplishments.update', $id)
             ]);
         }
-
+        
         return DB::transaction(function () use ($request, $id) {
             $accomplishment = Accomplishment::find($id);
             if(!$accomplishment) {
@@ -79,6 +81,7 @@ class AccomplishmentController extends Controller
                     'error' => 'Accomplishment not found'
                 ]);
             }
+            Gate::authorize('update', $accomplishment);
             $accomplishment->update([
                 'accomplishment' => $request->input('accomplishment')
             ]);
@@ -105,6 +108,7 @@ class AccomplishmentController extends Controller
                 'error' => 'Accomplishment not found'
             ]);
         }
+        Gate::authorize('delete', $accomplishment);
         $accomplishment->delete();
         return redirect()->back()->with([
             'success' => 'Accomplishment deleted successfully'
@@ -114,6 +118,7 @@ class AccomplishmentController extends Controller
     public function downloadFile($id) {
         //
         $accomplishment = Accomplishment::find($id);
+        Gate::authorize('update', $accomplishment);
         if(!$accomplishment) {
             return redirect()->back()->with([
                 'error' => 'Accomplishment not found'
@@ -131,6 +136,7 @@ class AccomplishmentController extends Controller
                 'error' => 'Accomplishment not found'
             ]);
         }
+        Gate::authorize('delete', $accomplishment);
         Storage::delete('accomplishments/' . $accomplishment->file);
         $accomplishment->update([
             'file' => null
@@ -142,10 +148,7 @@ class AccomplishmentController extends Controller
 
     public function viewImage($filename)
     {
-
-
         $path = 'captures/' . $filename;
-
         if (!Storage::disk('public')->exists($path)) {
             return redirect()->back()->with('error', 'Image file not found');
         }

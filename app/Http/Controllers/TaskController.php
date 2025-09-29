@@ -7,7 +7,9 @@ use App\Models\Accomplishment;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
@@ -16,15 +18,15 @@ class TaskController extends Controller
     public function store(Request $request){
         $request->validateWithBag('addTask', [
             'task' => ['required', 'string', 'max:1000'],
-            'user_id' => ['required'],
+            // 'user_id' => ['required'],
             'user_no' => ['required'],
             'division' => ['required'],
         ]);
         Task::create([
             'task' => $request->input('task'),
-            'user_id' => $request->input('user_id'),
-            'user_no' => $request->input('user_no'),
-            'division' => User::DIVISIONS[$request->input('division')],
+            'user_id' => Auth::user()->empInfo->userID,
+            'user_no' => Auth::user()->username,
+            'division' => Auth::user()->empInfo->division,
             'date' => now(),
         ]);
         return redirect()->back()->with('success', 'Task added successfully.');
@@ -35,6 +37,7 @@ class TaskController extends Controller
         if(!$task){
             return redirect()->back()->with('error', 'Task not found.');
         }
+        Gate::authorize('update', $task);
         return view('tasks.edit', [
             'task' => $task
         ]);
@@ -51,6 +54,7 @@ class TaskController extends Controller
             ]);
         }
         $task = Task::find($id);
+        Gate::authorize('update', $task);
         if(!$task){
             return redirect()->back()->with('error', 'Task not found.');
         }
@@ -63,6 +67,7 @@ class TaskController extends Controller
     public function delete($id){
         return DB::transaction(function () use ($id) {
             $task = Task::find($id);
+            Gate::authorize('delete', $task);
             if(!$task){
                 return redirect()->back()->with('error', 'Task not found.');
             }

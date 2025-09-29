@@ -8,6 +8,7 @@ use App\Models\PAMOUserInfo;
 use App\Models\TimeEntry;
 use App\Models\TSDUserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,8 +18,7 @@ class TimeEntryController extends Controller
     public function store(Request $request) {
         $request->validate([
             'location' => 'required',
-            'user_id' => 'required',
-            'user_no' => 'required',
+            // 'user_no' => 'required',
             'entry_type' => 'required|in:pm_in,pm_out,am_in,am_out',
             'photo' => 'nullable'
         ]);
@@ -29,14 +29,14 @@ class TimeEntryController extends Controller
                 'tsd' => 'tsd'
             ];
     
-            $time_entry = TimeEntry::where('user_id', $request->user_id)->whereDate('date', now())->first();
+            $time_entry = TimeEntry::where('user_id', Auth::user()->empInfo->userID)->whereDate('date', now())->first();
             if(!$time_entry && $request->entry_type != 'am_in') {
                 abort(403, 'Invalid entry type.');
             }
             if(!$time_entry){
                 $time_entry = TimeEntry::create([
-                    'user_id' => $request->user_id,
-                    'user_no' => $request->user_no,
+                    'user_id' => Auth::user()->empInfo->userID,
+                    'user_no' => Auth::user()->username,
                     'am_in_location' => $request->location,
                     'date' => now(),
                     'am_in' => now(),
@@ -69,11 +69,11 @@ class TimeEntryController extends Controller
     public function printDtr(Request $request) {
         $date = $request->has('date') && $request->date != '' ? $request->date : now();
         $division = $request->has('division') ? $request->division : null;
-        $user_id = $request->has('user_id') ? $request->user_id : null;
         if(!$division) {
             return abort(403, 'DIVISION NOT FOUND');
         }
-        $user = $this->getUserByTinOrItemNo($user_id, $division);
+        $user = Auth::user()->empInfo;
+        // $user = $this->getUserByTinOrItemNo($user_id, $division);
         $time_entries = TimeEntry::where('user_id', $user->userID)->whereDate('date', $date)->first();
         $accomplishments = Accomplishment::where('user_id', $user->userID)
             ->with('task')

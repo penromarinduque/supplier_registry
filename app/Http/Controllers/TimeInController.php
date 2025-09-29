@@ -7,7 +7,11 @@ use App\Models\PAMOUserInfo;
 use App\Models\Task;
 use App\Models\TimeEntry;
 use App\Models\TSDUserInfo;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class TimeInController extends Controller
 {
@@ -23,25 +27,52 @@ class TimeInController extends Controller
     }
 
     public function show(Request $request) {
-        $division = $request->has('division') && $request->division != '' ? $request->division : null;
-        $user_id = $request->has('user_id') ? $request->user_id : null;
-        if(!$division) {
-            return abort(403, 'DIVISION NOT FOUND');
+        $user = Auth::user();
+
+        // Optional: check division-based restrictions
+        $division = $request->division;
+        if (!$division) {
+            return redirect()->back()->with('error', 'Invalid division.');
         }
-        
-        $user = $this->getUserByTinOrItemNo($user_id, $division);
-        if(!$user) {
-            return redirect()->back()->with('error', 'User with TIN or Item No. '.''.$user_id.' '.' not found. Make sure you have entered the correct TIN or Item No.');
-        }
-        $time_entries = TimeEntry::where('user_id', $user->userID)->whereDate('date', now())->first();
-        $tasks = Task::where('user_id', $user->userID)->whereDate('date', now())->get();
+
+
+        // Fetch records
+        $time_entries = TimeEntry::where('user_id', $user->empInfo->userID)
+            ->whereDate('date', now())
+            ->first();
+
+        $tasks = Task::where('user_id', $user->empInfo->userID)
+            ->whereDate('date', now())
+            ->get();
+
         return view('timein.show', [
-            'user' => $user,
-            'division' => $division,
-            'time_entries' => $time_entries,
-            'tasks' => $tasks
+            'user'        => $user->empInfo,  // load employee info
+            'division'    => $division,
+            'time_entries'=> $time_entries,
+            'tasks'       => $tasks
         ]);
     }
+
+    public function attempt(Request $request) {
+        $request->validate([
+            'user_id'  => 'required|string',
+            'password' => 'required|string',
+            'division' => 'required|string'
+        ]);
+
+        $credentials = [
+            'username' => $request->user_id,
+            'password' => $request->password,
+        ];
+
+        // Try to log in the user
+        if (!Auth::attempt($credentials)) {
+            return back()->with('error', 'Invalid username or password.');
+        }
+
+        return redirect()->route('timein.show', ['division' => $request->division]);
+    }
+
 
     private function getUserByTinOrItemNo($user_id, $division){
         $userClasses = $classes = [
