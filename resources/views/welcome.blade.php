@@ -114,7 +114,7 @@
 
         <div class="text-center mb-5">
             <h2 class="main-title">Online Attendance System</h2>
-            <h5>(For Alternative Working Arrangement)</h5>
+            <h5>(For Alternative Work Arrangement)</h5>
         </div>
 
         <!-- Cards Section -->
