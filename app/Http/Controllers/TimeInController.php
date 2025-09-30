@@ -22,7 +22,7 @@ class TimeInController extends Controller
             return abort(403, 'DIVISION NOT FOUND');
         }
         Auth::logout();
-        
+
         return view('timein.index', [
             'division' => $division
         ]);

@@ -381,7 +381,7 @@
                             </p>
                             <div style="margin-top: 10px;">
                                 <span
-                                    style="font-weight: bold; font-size: 14px;">{{ $user->name }}</span><br />
+                                    style="font-weight: bold; font-size: 14px;">{{ strtoupper($user->name) }}</span><br />
                                 <div style="width: 80%; margin: 5px auto; border-top: 1px solid #000;"></div>
                                 <span style="font-size: 13px;">{{ $user->position }}</span>
                             </div>
