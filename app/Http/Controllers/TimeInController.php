@@ -65,6 +65,16 @@ class TimeInController extends Controller
             'password' => $request->password,
         ];
 
+        $user = User::where('username', $request->user_id)->first();
+
+        if (!$user) {
+            return back()->with('error', 'User not found.');
+        }
+
+        if ($user->empInfo->division != $request->division) {
+            return back()->with('error', 'User not found on ' . User::DIVISION_LABELS[$request->division] . '.');
+        }
+
         // Try to log in the user
         if (!Auth::attempt($credentials)) {
             return back()->with('error', 'Invalid username or password.');
