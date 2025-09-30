@@ -195,41 +195,49 @@
 		return $result;
 	}
     function calculateSummaryCos($user, $time_entries) {
-        $dateNow = $time_entries->date;
-        $a = $time_entries->am_in ? Illuminate\Support\Carbon::parse($time_entries->am_in)->format('g:i A') : '&nbsp;'; 
-        $b = $time_entries->am_out ? Illuminate\Support\Carbon::parse($time_entries->am_out)->format('g:i A') : '&nbsp;';
-        $c = $time_entries->pm_in ? Illuminate\Support\Carbon::parse($time_entries->pm_in)->format('g:i A') : '&nbsp;';
-        $d = $time_entries->pm_out ? Illuminate\Support\Carbon::parse($time_entries->pm_out)->format('g:i A') : '&nbsp;';
+        $dateNow =  Illuminate\Support\Carbon::parse($time_entries->date);
+        $a = $time_entries->am_in ? Illuminate\Support\Carbon::parse($time_entries->am_in)->setSeconds(0) : '&nbsp;'; 
+        $b = $time_entries->am_out ? Illuminate\Support\Carbon::parse($time_entries->am_out)->setSeconds(0) : '&nbsp;';
+        $c = $time_entries->pm_in ? Illuminate\Support\Carbon::parse($time_entries->pm_in)->setSeconds(0) : '&nbsp;';
+        $d = $time_entries->pm_out ? Illuminate\Support\Carbon::parse($time_entries->pm_out)->setSeconds(0) : '&nbsp;';
+
 
         $total_hours = 0;
         $undertime = 0;
         $overtime = 0;
         $late_minutes = 0;
 
-        $morning_in = strtotime($dateNow . " " . $a);
-        $morning_out = strtotime($dateNow . " " . $b);
-        $afternoon_in = strtotime($dateNow . " " . $c);
-        $afternoon_out = strtotime($dateNow . " " . $d);
+        $morning_in = $a;
+        $morning_out = $b;
+        $afternoon_in = $c;
+        $afternoon_out = $d;
 
-        // Standard times
-        $standard_morning_in = strtotime($dateNow . " 8:00 AM");
-        $standard_morning_out = strtotime($dateNow . " 12:00 PM");
-        $standard_afternoon_in = strtotime($dateNow . " 1:00 PM");
-        $standard_afternoon_out = strtotime($dateNow . " 5:00 PM");
+        Illuminate\Support\Facades\Log::info($morning_in);
+        Illuminate\Support\Facades\Log::info($morning_out);
+        Illuminate\Support\Facades\Log::info($afternoon_in);
+        Illuminate\Support\Facades\Log::info($afternoon_out);
+
+        $standard_morning_in = $dateNow->copy()->setTime(8, 0, 0);
+        $standard_morning_out = $dateNow->copy()->setTime(12, 0, 0);
+        $standard_afternoon_in = $dateNow->copy()->setTime(13, 0, 0);
+        $standard_afternoon_out = $dateNow->copy()->setTime(17, 0, 0);
 
         // Calculate morning hours if both morning in and out are not empty
-        $morning_hours = 0;
         if ($a != "&nbsp;" && $b != "&nbsp;") {
-            if ($morning_in > $standard_morning_in) {
-                $late_minutes += round(($morning_in - $standard_morning_in) / 60);
+            if ($morning_in->greaterThan($standard_morning_in)) {
+                $late_minutes += $standard_morning_in->diffInMinutes($morning_in, false);
             }
+
             $morning_hours = 4;
-            if ($morning_in > $standard_morning_in) {
-                $morning_hours -= ($morning_in - $standard_morning_in) / 3600;
+
+            if ($morning_in->greaterThan($standard_morning_in)) {
+                $morning_hours -= $standard_morning_in->diffInSeconds($morning_in) / 3600;
             }
-            if ($morning_out < $standard_morning_out) {
-                $morning_hours -= ($standard_morning_out - $morning_out) / 3600;
+
+            if ($morning_out->lessThan($standard_morning_out)) {
+                $morning_hours -= $morning_out->diffInSeconds($standard_morning_out) / 3600;
             }
+
             if ($morning_hours < 0) {
                 $morning_hours = 0;
             }
@@ -238,27 +246,31 @@
         // Calculate afternoon hours if both afternoon in and out are not empty
         $afternoon_hours = 0;
         if ($c != "&nbsp;" && $d != "&nbsp;") {
-            if ($afternoon_in > $standard_afternoon_in) {
-                $late_minutes += round(($afternoon_in - $standard_afternoon_in) / 60);
+            if ($afternoon_in->greaterThan($standard_afternoon_in)) {
+                $late_minutes += $standard_afternoon_in->diffInMinutes($afternoon_in, false);
             }
+
             $afternoon_hours = 4;
-            if ($afternoon_in > $standard_afternoon_in) {
-                $afternoon_hours -= ($afternoon_in - $standard_afternoon_in) / 3600;
+
+            if ($afternoon_in->greaterThan($standard_afternoon_in)) {
+                $afternoon_hours -= $standard_afternoon_in->diffInSeconds($afternoon_in) / 3600;
             }
-            if ($afternoon_out < $standard_afternoon_out) {
-                $afternoon_hours -= ($standard_afternoon_out - $afternoon_out) / 3600;
+
+            if ($afternoon_out->lessThan($standard_afternoon_out)) {
+                $afternoon_hours -= $afternoon_out->diffInSeconds($standard_afternoon_out) / 3600;
             }
+
             if ($afternoon_hours < 0) {
                 $afternoon_hours = 0;
             }
 
             // Calculate overtime (only if afternoon out is after standard time and no undertime)
-            if ($afternoon_out > $standard_afternoon_out) {
-                $overtime = ($afternoon_out - $standard_afternoon_out) / 3600;
+            if ($afternoon_out->greaterThan($standard_afternoon_out)) {
+                $overtime = $standard_afternoon_out->diffInSeconds($afternoon_out) / 3600;
             }
         }
 
-        // Total worked hours is the sum of morning and afternoon hours
+        // Total worked hours
         $total_hours = $morning_hours + $afternoon_hours;
 
         // Calculate undertime if total hours is less than 8
@@ -340,14 +352,14 @@
                         @php
                             $summary = calculateSummaryCos($user, $time_entries);
                         @endphp
+                        {{-- <td align="center" ></td>
                         <td align="center" ></td>
                         <td align="center" ></td>
-                        <td align="center" ></td>
-                        <td align="center" ></td>
-                        {{-- <td align="center" > {{ formatHoursAndMinutes($summary['total_hours']) }}</td>
+                        <td align="center" ></td> --}}
+                        <td align="center" > {{ formatHoursAndMinutes($summary['total_hours']) }}</td>
                         <td align="center" >{{ ($summary['late_minutes'] > 0 ? formatTotalMonthLate($summary['late_minutes']) : '') }}</td>
                         <td align="center" > {{ formatHoursAndMinutes($summary['undertime']) }}</td>
-                        <td align="center" > {{ formatHoursAndMinutes($summary['overtime']) }}</td> --}}
+                        <td align="center" > {{ formatHoursAndMinutes($summary['overtime']) }}</td>
                     </tr>
                 @else
                 <tr>
