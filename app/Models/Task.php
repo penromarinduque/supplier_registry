@@ -9,6 +9,10 @@ class Task extends Model
     //
     protected $guarded = [];
 
+    protected $casts = [
+        'date' => 'datetime'
+    ];
+
     public function accomplishments()
     {
         return $this->hasMany(Accomplishment::class);

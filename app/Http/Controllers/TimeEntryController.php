@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accomplishment;
 use App\Models\MSDUserInfo;
 use App\Models\PAMOUserInfo;
+use App\Models\Task;
 use App\Models\TimeEntry;
 use App\Models\TSDUserInfo;
 use Illuminate\Http\Request;
@@ -75,6 +76,7 @@ class TimeEntryController extends Controller
         $user = Auth::user()->empInfo;
         // $user = $this->getUserByTinOrItemNo($user_id, $division);
         $time_entries = TimeEntry::where('user_id', $user->userID)->whereDate('date', $date)->first();
+        $tasks = Task::where('user_id', $user->userID)->whereDate('date', $date)->get();
         $accomplishments = Accomplishment::where('user_id', $user->userID)
             ->with('task')
             ->whereDate('date', $date)
@@ -85,7 +87,8 @@ class TimeEntryController extends Controller
             'division' => $division,
             'time_entries' => $time_entries,
             'date' => $date,
-            'accomplishments' => $accomplishments
+            'accomplishments' => $accomplishments,
+            'tasks' => $tasks
         ]);
     }
 
