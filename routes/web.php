@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccomplishmentController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimeEntryController;
 use App\Http\Controllers\TimeInController;
@@ -17,14 +18,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
-Route::get('logut', function () {
+})->name('home');
+
+Route::get('/login', function(){
+    return redirect(route('home'));
+})->name('login');
+
+Route::get('logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+Route::get('print-passwords', function () {
+    $passwords = TempPassword::all();
+    return view('print-passwords', [
+        'passwords' => $passwords
+    ]);
+});
+
+Route::group(['prefix' => 'settings','as' => 'settings.'], function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('', [SettingsController::class, 'settings'])->name('index');
+        Route::post('update-password', [SettingsController::class, 'updatePassword'])->name('updatePassword');
+    });
+});
 
 Route::get('/time-in', [TimeInController::class, 'index'])->name('timein');
-Route::post('/time-in/attempt', [TimeInController::class, 'attempt'])->name('timein.attempt');
+Route::post('/time-in/attempt', [TimeInController::class, 'attempt'])->name('timein.attempt')->middleware('guest');
 Route::get('/time-in/show', [TimeInController::class, 'show'])->name('timein.show')->middleware('auth');
 
 Route::group(['prefix' => 'time-entries', 'as' => 'timeEntries.'], function () {

@@ -35,6 +35,12 @@ class User extends Authenticatable
         'tsd' => 'tsd',
     ];
 
+    public const DIVISIONS_REVERSE = [
+        'msd' => 'main',
+        'pamo' => 'pamo',
+        'tsd' => 'tsd',
+    ];
+
     public const DIVISION_LABELS = [
         'main' => 'Office of the PENRO/Management Services Division',
         'pamo' => 'Protected Area Management Office',

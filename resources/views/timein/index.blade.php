@@ -13,7 +13,7 @@
         <input type="hidden" name="division" value="{{ $division }}">
         <div class="mb-2">
             <label for="timein">DENR Item No. (For J.O. use TIN)</label>
-            <input class="form-control" name="user_id" type="text" placeholder="eg. OSEC-DENRB-ADAS2-001-2004 for Item No. or 000-000-000-0000 for TIN" required>
+            <input class="form-control" name="user_id" type="text" placeholder="eg. OSEC-DENRB-ADAS2-001-2004 for Item No. or 000-000-000-0000 for TIN" value="{{ old('user_id') }}" required>
         </div>
         <div class="mb-2">
             <label for="timein">Password</label>
