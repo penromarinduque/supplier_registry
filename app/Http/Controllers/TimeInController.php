@@ -71,7 +71,7 @@ class TimeInController extends Controller
             return back()->with('error', 'User not found.');
         }
 
-        if ($user->empInfo->division != $request->division) {
+        if ($user->empInfo->division != User::DIVISIONS[$request->division]) {
             return back()->with('error', 'User not found on ' . User::DIVISION_LABELS[$request->division] . '.');
         }
 
