@@ -24,7 +24,7 @@
                     <h5 class="text-center" id="time"></h5>
                 </div>
                 <div class="mb-2">
-                    <label for="date">Accoplishment</label>
+                    <label for="date">Accomplishment</label>
                     <textarea class="form-control" name="accomplishment">{{ old('accomplishment') }}</textarea>
                     @error('accomplishment', 'addAccomplishment')
                         <span class="text-danger">{{ $message }}</span>
