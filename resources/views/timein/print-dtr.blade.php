@@ -463,53 +463,58 @@
             <br>
             <h3 style="margin-top: 1rem;">Attachments</h3>
             <table style="width: 100%;  margin: 0px auto;">
-                <tr>
-                    <td align="center">
-                        @if ($time_entries->am_in_capture)
-                            <img width="270" src="{{ route('storage.viewImage', $time_entries->am_in_capture)}}" alt="">
-                        @else
-                            <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
-                                <p>No Captured image</p>
-                            </div>
-                        @endif
-                        <p>AM IN Capture</p>
-                    </td>
-                    <td align="center">
-                        @if ($time_entries->am_out_capture)
-                            <img width="250" src="{{ route('storage.viewImage', $time_entries->am_out_capture)}}" alt="">
-                        @else
-                            <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
-                                <p>No Captured image</p>
-                            </div>
-                        @endif
-                        <p>AM OUT Capture</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        @if ($time_entries->pm_in_capture)
-                            <img width="250" src="{{ route('storage.viewImage', $time_entries->pm_in_capture)}}" alt="">
-                        @else
-                            <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
-                                <p>No Captured image</p>
-                            </div>
-                        @endif
-                        <p>PM IN Capture</p>
-                    </td>
-                    <td align="center">
-                        @if ($time_entries->pm_out_capture)
-                            <img width="250" src="{{ route('storage.viewImage', $time_entries->pm_out_capture)}}" alt="">
-                        @else
-                            <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
-                                <p>No Captured image</p>
-                            </div>
-                        @endif
-                        <p>PM OUT Capture</p>
-                    </td>
-                </tr>
+                @if ($time_entries)
+                    <tr>
+                        <td align="center">
+                            @if ($time_entries->am_in_capture)
+                                <img width="270" src="{{ route('storage.viewImage', $time_entries->am_in_capture)}}" alt="">
+                            @else
+                                <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
+                                    <p>No Captured image</p>
+                                </div>
+                            @endif
+                            <p>AM IN Capture</p>
+                        </td>
+                        <td align="center">
+                            @if ($time_entries->am_out_capture)
+                                <img width="250" src="{{ route('storage.viewImage', $time_entries->am_out_capture)}}" alt="">
+                            @else
+                                <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
+                                    <p>No Captured image</p>
+                                </div>
+                            @endif
+                            <p>AM OUT Capture</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            @if ($time_entries->pm_in_capture)
+                                <img width="250" src="{{ route('storage.viewImage', $time_entries->pm_in_capture)}}" alt="">
+                            @else
+                                <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
+                                    <p>No Captured image</p>
+                                </div>
+                            @endif
+                            <p>PM IN Capture</p>
+                        </td>
+                        <td align="center">
+                            @if ($time_entries->pm_out_capture)
+                                <img width="250" src="{{ route('storage.viewImage', $time_entries->pm_out_capture)}}" alt="">
+                            @else
+                                <div class="" style="width: 250px; height: 250px; background-color: #ccc; display: flex; align-items: center; justify-content: center">
+                                    <p>No Captured image</p>
+                                </div>
+                            @endif
+                            <p>PM OUT Capture</p>
+                        </td>
+                    </tr>
+                @endif
+                @if (!$time_entries)
+                    <p style="text-align: center">No Time Entries</p>
+                @endif
             </table>
         </div>
 
