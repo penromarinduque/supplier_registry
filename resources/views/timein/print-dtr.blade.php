@@ -223,6 +223,7 @@
         $standard_afternoon_out = $dateNow->copy()->setTime(17, 0, 0);
 
         // Calculate morning hours if both morning in and out are not empty
+        $morning_hours = 0;
         if ($a != "&nbsp;" && $b != "&nbsp;") {
             if ($morning_in->greaterThan($standard_morning_in)) {
                 $late_minutes += $standard_morning_in->diffInMinutes($morning_in, false);
