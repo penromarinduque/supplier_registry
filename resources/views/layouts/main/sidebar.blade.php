@@ -63,6 +63,19 @@
                 </p>
               </a>
             </li>
+            @auth
+              @if (auth()->user()->roles->contains('id', 1))
+                <li class="nav-header">ADMIN</li>
+                <li class="nav-item ">
+                  <a href="{{ route('users.index', ['division' => request('division')]) }}" class="nav-link ">
+                    <i class="fas fa-users"></i>
+                    <p>
+                      Users
+                    </p>
+                  </a>
+                </li>
+              @endif
+            @endauth
             <li class="nav-item ">
               <a href="{{ route('logout')}}" class="nav-link ">
                 <i class="fas fa-sign-out-alt"></i>
@@ -72,14 +85,7 @@
               </a>
             </li>
           @endauth
-          {{-- <li class="nav-item ">
-            <a href="#" class="nav-link ">
-              <i class="fas fa-tasks"></i>
-              <p>
-                Tasks
-              </p>
-            </a>
-          </li> --}}
+         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -5,6 +5,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimeEntryController;
 use App\Http\Controllers\TimeInController;
+use App\Http\Controllers\UserController;
 use App\Models\EmpInfo;
 use App\Models\MSDUserInfo;
 use App\Models\PAMOUserInfo;
@@ -61,6 +62,13 @@ Route::group(['prefix' => 'accomplishments', 'as' => 'accomplishments.'], functi
         Route::delete('{id}', [AccomplishmentController::class, 'delete'])->name('delete');
         Route::get('download-file/{id}', [AccomplishmentController::class, 'downloadFile'])->name('downloadFile');
         Route::delete('delete-file/{id}', [AccomplishmentController::class, 'deleteFile'])->name('deleteFile');
+    });
+});
+
+Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('', [UserController::class, 'index'])->name('index');
+        Route::put('reset-password/{id}', [UserController::class, 'resetPassword'])->name('resetPassword');
     });
 });
 
