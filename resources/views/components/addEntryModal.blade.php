@@ -323,6 +323,8 @@ $(document).ready(function() {
             );
         });
 
+        const device = navigator.userAgent;
+
         // Load logo (async)
         const logo = await new Promise((resolve) => {
             const img = new Image();
@@ -336,7 +338,7 @@ $(document).ready(function() {
         context.textBaseline = "top";
 
         const padding = 8;
-        const lines = [formattedDate, gpsText];
+        const lines = [formattedDate, gpsText, device];
         const textHeight = 20;
         const boxHeight = lines.length * textHeight + padding;
         const textBoxWidth = Math.max(...lines.map(line => context.measureText(line).width)) + padding;
