@@ -323,7 +323,7 @@ $(document).ready(function() {
             );
         });
 
-        const device = navigator.userAgentData ;
+        const device = navigator.userAgentData?.platform ;
 
         // Load logo (async)
         const logo = await new Promise((resolve) => {
