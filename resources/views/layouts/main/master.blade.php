@@ -112,6 +112,18 @@
             $(this).closest("form").submit();
         });
     })
+
+    function togglePassword(input_id, el) {
+      const input = $('#'.concat(input_id));
+
+      if (input.attr('type') === 'password') {
+        input.attr('type', 'text');
+        $(el).html('<i class="fas fa-eye-slash input-group-text"></i>');
+      } else {
+        input.attr('type', 'password');
+        $(el).html('<i class="fas fa-eye input-group-text"></i>');
+      }
+    }
 </script>
 </body>
 </html>

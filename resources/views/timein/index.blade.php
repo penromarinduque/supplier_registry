@@ -17,7 +17,13 @@
         </div>
         <div class="mb-2">
             <label for="timein">Password</label>
-            <input class="form-control" name="password" type="password"  required>
+            <div class="input-group">
+                
+                <input class="form-control" name="password" type="password" id="password" placeholder="Password"  required>
+                <div class="input-group-prepend " type="button" onclick="togglePassword('password', this)">
+                    <i class="fas fa-eye input-group-text"></i>
+                </div>
+            </div>
         </div>
         <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary btn-submit">Continue</button>

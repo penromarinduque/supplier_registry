@@ -85,6 +85,9 @@ Route::get('/user-guide', function (Request $request) { return view('user-guide'
     'division' => $request->input('division'),
 ]); })->name('userGuides');
 
+Route::get('/generate-password', function (Request $request) { 
+    return bcrypt($request->input('password'));
+ })->name('generatePassword');
 
 // Route::get('migrate', function () {
 //     User::truncate();

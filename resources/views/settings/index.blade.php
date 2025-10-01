@@ -17,21 +17,36 @@
                 @csrf
                 <div class="mb-2">
                     <label for="timein">Current Password</label>
-                    <input class="form-control" name="current_password" type="password" placeholder="Current Password" required>
+                    <div class="input-group">
+                        <input class="form-control" name="current_password" type="password" id="current_password" placeholder="Current Password"  required>
+                        <div class="input-group-prepend " type="button" onclick="togglePassword('current_password', this)">
+                            <i class="fas fa-eye input-group-text"></i>
+                        </div>
+                    </div>
                     @error('current_password', 'updatePassword')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="mb-2">
                     <label for="timein">New Password</label>
-                    <input class="form-control" name="new_password" type="password" placeholder="New Password" required>
+                    <div class="input-group">
+                        <input class="form-control" name="new_password" type="password" id="new_password" placeholder="New Password"  required>
+                        <div class="input-group-prepend " type="button" onclick="togglePassword('new_password', this)">
+                            <i class="fas fa-eye input-group-text"></i>
+                        </div>
+                    </div>
                     @error('new_password', 'updatePassword')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="mb-2">
                     <label for="timein">Confirm New Password</label>
-                    <input class="form-control" name="new_password_confirmation" type="password" placeholder="Confirm New Password" required>
+                    <div class="input-group">
+                        <input class="form-control" name="new_password_confirmation" type="password" id="new_password_confirmation" placeholder="Confirm New Password"  required>
+                        <div class="input-group-prepend " type="button" onclick="togglePassword('new_password_confirmation', this)">
+                            <i class="fas fa-eye input-group-text"></i>
+                        </div>
+                    </div>
                     @error('new_password_confirmation', 'updatePassword')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
