@@ -15,6 +15,9 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminlte3/dist/css/adminlte.min.css') }}">
   <link rel="shortcut icon" href="{{ asset('adminlte3/dist/img/favico.ico') }}" type="image/x-icon">
+  {{-- select 2 --}}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -103,6 +106,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('adminlte3/dist/js/pages/dashboard2.js') }}"></script>
 @yield('script')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @yield('includes')
 <script>
     $(document).ready(function() {
@@ -111,6 +115,8 @@
             $(this).prepend('<i class="fas fa-spinner fa-spin me-2"></i>');
             $(this).closest("form").submit();
         });
+
+        $(".select2").select2();
     })
 
     function togglePassword(input_id, el) {

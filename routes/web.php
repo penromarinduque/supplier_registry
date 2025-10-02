@@ -69,6 +69,9 @@ Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
     Route::middleware('auth')->group(function () {
         Route::get('', [UserController::class, 'index'])->name('index');
         Route::put('reset-password/{id}', [UserController::class, 'resetPassword'])->name('resetPassword');
+        Route::put('update-role/{id}', [UserController::class, 'updateRole'])->name('updateRole');
+        Route::get('create', [UserController::class, 'create'])->name('create');
+        Route::post('store', [UserController::class, 'store'])->name('store');
     });
 });
 

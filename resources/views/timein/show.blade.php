@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 <div class="mx-auto" style="max-width: 1000px">
-    <h4 class="text-center">Welcome back <span class="text-primary">{{ $user->name }}</span>!</h4>
+    <h4 class="text-center">Hello <span class="text-primary">{{ $user->name }}</span>!</h4>
     <p class="text-muted text-center">These are your time logs for the day</p>
     <div class="table-responsive">
         <table class="table" style="min-width: 800px; width: 100%">
