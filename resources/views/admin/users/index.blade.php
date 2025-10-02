@@ -15,6 +15,17 @@
             <div class="card-title">Users List</div>
         </div>
         <div class="card-body">
+            <div class="d-flex justify-content-end mb-2">
+                <form action="{{ route('users.index', ['division' => request('division')]) }}" method="GET">
+                    <input type="hidden" name="division" value="{{ request('division') }}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request('search') }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>

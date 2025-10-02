@@ -1,6 +1,6 @@
 <div class="modal fade" id="editRoleModal">
     <div class="modal-dialog">
-        <form class="modal-content" action="{{ route('users.updateRole', $user->id) }}" method="POST">
+        <form class="modal-content" action="" method="POST">
             <div class="modal-header">
                 <h4 class="modal-title">Edit Role</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

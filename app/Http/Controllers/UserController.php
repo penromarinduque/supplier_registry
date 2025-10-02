@@ -13,10 +13,21 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     //
-    public function index() {
-        $users = User::paginate(20);
+    public function index(Request $request) {
+        $users_query = User::query();
         $roles = Role::all();
         $role_types = RoleType::all();
+        $search = $request->input('search');
+        if($search) {
+            $users = $users_query->where('name', 'like', '%' . $search . '%')
+            ->orWhereHas('empInfo', function ($query) use ($search) { 
+                $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('SSN', 'like', '%' . $search . '%')
+                ->orWhere('TIN', 'like', '%' . $search . '%');
+            });
+        }
+
+        $users = $users_query->paginate(20);
         return view('admin.users.index', compact('users', 'roles', 'role_types'));
     }
 
