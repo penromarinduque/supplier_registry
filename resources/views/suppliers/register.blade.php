@@ -17,40 +17,12 @@
                         <strong>Error!</strong> {{ $error }}
                     </div>
                 @endforeach --}}
-                <div class="row align-items-end">
-                    @csrf
-                    <div class="col col-md-6 col-lg-4 mb-2">
-                        <label for="email">Email <span class="text-danger">*</span></label>
-                        <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
-                        @error('email', 'store')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
+                <h6 class="font-weight-bold h5">Company Information</h6>
+                <div class="row align-items-end mb-3">
                     <div class="col col-md-6 col-lg-4 mb-2">
                         <label for="company_name">Company Name <span class="text-danger">*</span></label>
                         <input type="text" name="company_name" id="company_name" class="form-control" value="{{ old('company_name') }}" required>
                         @error('company_name', 'store')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="col col-md-6 col-lg-4 mb-2">
-                        <label for="authorized_representative">Authorized Representative <span class="text-danger">*</span></label>
-                        <input type="text" name="authorized_representative" id="authorized_representative" class="form-control" value="{{ old('authorized_representative') }}" required>
-                        @error('authorized_representative', 'store')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="col col-md-6 col-lg-4 mb-2">
-                        <label for="landline_no">Landline No. <span class="text-danger">*</span></label>
-                        <input type="text" name="landline_no" id="landline_no" class="form-control" value="{{ old('landline_no') }}" required>
-                        @error('landline_no', 'store')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="col col-md-6 col-lg-4 mb-2">
-                        <label for="mobile_no">Mobile No. <span class="text-danger">*</span></label>
-                        <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="{{ old('mobile_no') }}" required>
-                        @error('mobile_no', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -90,13 +62,6 @@
                         @enderror
                     </div>
                     <div class="col col-md-6 col-lg-4 mb-2">
-                        <label for="valid_id">Upload Valid ID of Authorized Representative <span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*" name="valid_id" id="valid_id" class="form-control-file" required>
-                        @error('valid_id', 'store')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="col col-md-6 col-lg-4 mb-2">
                         <label for="philgeps_cert">Upload PHILGEPS Registration Certificate <span class="text-danger">*</span></label>
                         <input type="file" accept="image/*" name="philgeps_cert" id="philgeps_cert" class="form-control-file" required>
                         @error('philgeps_cert', 'store')
@@ -114,6 +79,47 @@
                         <label for="bir_cert">Upload BIR Certificate of Registration/DTI Permit <span class="text-danger">*</span></label>
                         <input type="file" accept="image/*" name="bir_cert" id="bir_cert" class="form-control-file" required>
                         @error('bir_cert', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <hr>
+                <h6 class="font-weight-bold h5">Authorized Representative</h6>
+                <div class="row align-items-end">
+                    @csrf
+                    <div class="col col-md-6 col-lg-4 mb-2">
+                        <label for="email">Email <span class="text-danger">*</span></label>
+                        <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
+                        @error('email', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    
+                    <div class="col col-md-6 col-lg-4 mb-2">
+                        <label for="authorized_representative">Authorized Representative <span class="text-danger">*</span></label>
+                        <input type="text" name="authorized_representative" id="authorized_representative" class="form-control" value="{{ old('authorized_representative') }}" required>
+                        @error('authorized_representative', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col col-md-6 col-lg-4 mb-2">
+                        <label for="landline_no">Landline No. <span class="text-danger">*</span></label>
+                        <input type="text" name="landline_no" id="landline_no" class="form-control" value="{{ old('landline_no') }}" required>
+                        @error('landline_no', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col col-md-6 col-lg-4 mb-2">
+                        <label for="mobile_no">Mobile No. <span class="text-danger">*</span></label>
+                        <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="{{ old('mobile_no') }}" required>
+                        @error('mobile_no', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col col-md-6 col-lg-4 mb-2">
+                        <label for="valid_id">Upload Valid ID of Authorized Representative <span class="text-danger">*</span></label>
+                        <input type="file" accept="image/*" name="valid_id" id="valid_id" class="form-control-file" required>
+                        @error('valid_id', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

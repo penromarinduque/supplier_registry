@@ -22,6 +22,6 @@
     }
 </style>
 <div class="text-center mb-5">
-    <h2 class="main-title">Suppliers Directory</h2>
+    <h2 class="main-title">PENRO Procurement Management System (PPMS)</h2>
     {{-- <h5>(For Alternative Work Arrangement)</h5> --}}
 </div>

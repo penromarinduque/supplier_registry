@@ -53,6 +53,7 @@
                 </tbody>
             </table>
         </div>
+        {{ $suppliers->links() }}
     </div>
 </div>
 @endsection
