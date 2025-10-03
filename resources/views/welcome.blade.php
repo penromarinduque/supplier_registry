@@ -24,15 +24,7 @@
             min-height: 100vh;
         }
 
-        .logo-container img {
-            max-width: 140px;
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container img:hover {
-            transform: scale(1.05);
-        }
+        
 
         .card {
             background: rgba(255, 255, 255, 0.95);
@@ -54,27 +46,7 @@
             margin-bottom: 1rem;
         }
 
-        .main-title {
-            color: #2c3e50;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .main-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60%;
-            height: 3px;
-            background: #198754;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
+       
 
         .logo-text {
             color: #2c3e50;
@@ -103,58 +75,19 @@
 
     <div class="container py-5">
         <!-- Logo Section -->
-        <div class="logo-container text-center mb-5">
-            <div class="row justify-content-center">
-                <img src="{{ asset('LOGO.png')}}" alt="DENR Logo" class="img-fluid mb-3">
-                <img src="{{ asset('Bagong_Pilipinas_logo.png')}}" alt="Bagong Pilipinas Logo" class="img-fluid mb-3">
-            </div>
-            <h4 class="logo-text mb-2">Department of Environment and Natural Resources</h4>
-            <h5 class="logo-text mb-4">PENRO MARINDUQUE</h5>
+        @include('components.header1')
+        @include('components.title1')
+        
+        <div class="mx-auto d-flex justify-content-center action-buttons">
+            @auth
+                <a href="{{ route('admin.suppliers.index') }}" class="btn btn-primary">Enter</a>&nbsp;
+            @endauth
+            @guest
+                <a href="{{ route('auth.login') }}" class="btn btn-primary ">Login</a>&nbsp;
+            @endguest
+            <a href="{{ route('suppliers.register') }}" class="btn btn-outline-primary ">Register Supplier</a>
         </div>
 
-        <div class="text-center mb-5">
-            <h2 class="main-title">Online Attendance System</h2>
-            <h5>(For Alternative Work Arrangement)</h5>
-        </div>
-
-        <!-- Cards Section -->
-        <div class="row justify-content-center g-4">
-            <!-- Main Building Card -->
-            <div class="col-md-4 col-lg-3">
-                <a href="{{ route('timein', ['division' => 'main']) }}" class="text-decoration-none">
-                    <div class="card h-100 text-center p-4">
-                        <div class="card-body">
-                            <i class="bi bi-building card-icon"></i>
-                            <h4 class="card-title text-dark">Office of the PENRO & Management Services Division</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- TSD Building Card -->
-            <div class="col-md-4 col-lg-3">
-                <a href="{{ route('timein', ['division' => 'tsd']) }}" class="text-decoration-none">
-                    <div class="card h-100 text-center p-4">
-                        <div class="card-body">
-                            <i class="bi bi-house-gear card-icon"></i>
-                            <h4 class="card-title text-dark">Technical Services Division</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- PAMO Card -->
-            <div class="col-md-4 col-lg-3">
-                <a href="{{ route('timein', ['division' => 'pamo']) }}" class="text-decoration-none">
-                    <div class="card h-100 text-center p-4">
-                        <div class="card-body">
-                            <i class="bi bi-buildings card-icon"></i>
-                            <h4 class="card-title text-dark">Protected Area Management Office</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
         
     </div>
 

@@ -19,7 +19,7 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed bg-light">
 <div class="wrapper">
 
   
@@ -30,55 +30,33 @@
   </div> --}}
   @include('components.loader')
 
-  @include('layouts.main.navbar')
 
-  @include('layouts.main.sidebar')
+  <section class="content">
+    <div class="container-fluid">
+      @if (session('error'))
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>Error!</strong> {{ session('error') }}
+          </div>
+      @endif
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Suppliers Directory</h1>
-            <h5>@yield('title')</h5>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            @yield('breadcrumb')
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <section class="content">
-      <div class="container-fluid">
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>Error!</strong> {{ session('error') }}
-            </div>
-        @endif
+      @if (session('success'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>Success!</strong> {{ session('success') }}
+          </div>
+      @endif
 
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>Success!</strong> {{ session('success') }}
-            </div>
-        @endif
-
-
+      <div class="p-3">
         @yield('content')
       </div>
-    </section>
-  </div>
-  <!-- /.content-wrapper -->
+    </div>
+  </section>
 
-  @include('layouts.main.footer')
 </div>
 <!-- ./wrapper -->
 
@@ -120,6 +98,7 @@
     })
 
     function togglePassword(input_id, el) {
+      console.log("asdasd")
       const input = $('#'.concat(input_id));
 
       if (input.attr('type') === 'password') {

@@ -12,14 +12,6 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       @auth
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="https://api.dicebear.com/9.x/thumbs/svg?seed={{ auth()->user()->empInfo->name }}" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">{{ auth()->user()->empInfo->name }}</a>
-          </div>
-        </div>
       @endauth
 
 
@@ -28,56 +20,18 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          @guest
-            <li class="nav-item ">
-              <a href="{{ route('timein', ['division' => request('division')])}}" class="nav-link ">
-                <i class="far fa-clock"></i>
-                <p>
-                  Log In
-                </p>
-              </a>
-            </li>
-          @endguest
-            <li class="nav-item ">
-              <a href="{{ route('userGuides', ['division' => request('division')])}}" class="nav-link ">
-                <i class="far fa-question-circle"></i>
-                <p>
-                  User Guides
-                </p>
-              </a>
-            </li>
+
           @auth 
             <li class="nav-item ">
-              <a href="{{ route('timein.show', ['division' => request('division')])}}" class="nav-link ">
-                <i class="far fa-clock"></i>
+              <a href="{{ route('admin.suppliers.index') }}" class="nav-link ">
+                <i class="fas fa-users"></i>
                 <p>
-                  Time In
+                  Suppliers
                 </p>
               </a>
             </li>
             <li class="nav-item ">
-              <a href="{{ route('settings.index', ['division' => request('division')])}}" class="nav-link ">
-                <i class="fas fa-user-cog"></i>
-                <p>
-                  Settings
-                </p>
-              </a>
-            </li>
-            @auth
-              @if (auth()->user()->roles->contains('id', 1))
-                <li class="nav-header">ADMIN</li>
-                <li class="nav-item ">
-                  <a href="{{ route('users.index', ['division' => request('division')]) }}" class="nav-link ">
-                    <i class="fas fa-users"></i>
-                    <p>
-                      Users
-                    </p>
-                  </a>
-                </li>
-              @endif
-            @endauth
-            <li class="nav-item ">
-              <a href="{{ route('logout')}}" class="nav-link ">
+              <a href="{{ route('auth.logout')}}" class="nav-link ">
                 <i class="fas fa-sign-out-alt"></i>
                 <p>
                   Logout

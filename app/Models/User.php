@@ -29,24 +29,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public const DIVISIONS = [
-        'main' => 'msd',
-        'pamo' => 'pamo',
-        'tsd' => 'tsd',
-    ];
-
-    public const DIVISIONS_REVERSE = [
-        'msd' => 'main',
-        'pamo' => 'pamo',
-        'tsd' => 'tsd',
-    ];
-
-    public const DIVISION_LABELS = [
-        'main' => 'Office of the PENRO/Management Services Division',
-        'pamo' => 'Protected Area Management Office',
-        'tsd' => 'Technical Services Division',
-    ];
-
     /**
      * Get the attributes that should be cast.
      *
@@ -60,13 +42,4 @@ class User extends Authenticatable
         ];
     }
 
-    public function empInfo()
-    {
-        return $this->hasOne(EmpInfo::class);
-    }
-
-    public function roles()
-    {
-        return $this->hasMany(Role::class);
-    }
 }
