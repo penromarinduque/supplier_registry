@@ -26,7 +26,6 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="company_profile">Upload Company Profile <span class="text-danger">*</span></label>
                         <input type="file" accept="image/*,application/pdf" name="company_profile" id="company_profile" class="form-control-file" >
@@ -34,6 +33,28 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <label for="company_facade">Upload Company Building/Office Facade (showing company logo, if any) <span class="text-danger">*</span></label>
+                        <input type="file" accept="image/*,application/pdf" name="company_facade" id="company_facade" class="form-control-file" >
+                        @error('company_facade', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <label for="company_address">Company Address <span class="text-danger">*</span></label>
+                        <input type="text"  name="company_address" id="company_address" class="form-control" >
+                        @error('company_address', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <label for="line_of_business">Line of Business <span class="text-danger">*</span></label>
+                        <input type="text" name="line_of_business" id="line_of_business" class="form-control" value="{{ old('line_of_business') }}" required>
+                        @error('line_of_business', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-2"></div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="philgeps_reg_no">PHILGEPS Registration/Certificate Number <span class="text-danger">*</span></label>
                         <input type="text" name="philgeps_reg_no" id="philgeps_reg_no" class="form-control" value="{{ old('philgeps_reg_no') }}" required>
@@ -49,6 +70,13 @@
                         @enderror
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <label for="philgeps_cert">Upload PHILGEPS Registration Certificate <span class="text-danger">*</span></label>
+                        <input type="file" accept="image/*,application/pdf" name="philgeps_cert" id="philgeps_cert" class="form-control-file" required>
+                        @error('philgeps_cert', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="business_permit_no">Business/Mayor's Permit Number <span class="text-danger">*</span></label>
                         <input type="text" name="business_permit_no" id="business_permit_no" class="form-control" value="{{ old('business_permit_no') }}" required>
                         @error('business_permit_no', 'store')
@@ -59,20 +87,6 @@
                         <label for="business_permit_validity">Validity of Business/Mayor's Permit <span class="text-danger">*</span></label>
                         <input type="date" name="business_permit_validity" id="business_permit_validity" class="form-control" value="{{ old('business_permit_validity') }}" required>
                         @error('business_permit_validity', 'store')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-2">
-                        <label for="line_of_business">Line of Business <span class="text-danger">*</span></label>
-                        <input type="text" name="line_of_business" id="line_of_business" class="form-control" value="{{ old('line_of_business') }}" required>
-                        @error('line_of_business', 'store')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-2">
-                        <label for="philgeps_cert">Upload PHILGEPS Registration Certificate <span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*,application/pdf" name="philgeps_cert" id="philgeps_cert" class="form-control-file" required>
-                        @error('philgeps_cert', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -94,6 +108,13 @@
                         <label for="dti_permit">Upload DTI Permit <span class="text-danger">*</span></label>
                         <input type="file" accept="image/*,application/pdf" name="dti_permit" id="dti_permit" class="form-control-file" required>
                         @error('dti_permit', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <label for="dti_permit_validity">DTI Permit Validity <span class="text-danger">*</span></label>
+                        <input type="date" name="dti_permit_validity" id="dti_permit_validity" class="form-control" required>
+                        @error('dti_permit_validity', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

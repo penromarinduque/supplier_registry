@@ -34,6 +34,9 @@ class SupplierController extends Controller
             'dti_permit' => 'required|file|mimes:jpg,jpeg,png|max:100000',
             'authorization' => 'nullable|file|mimes:jpg,jpeg,png|max:100000',
             'company_profile' => 'required|file|mimes:jpg,jpeg,png|max:100000',
+            'company_address' => 'required|string|max:255',
+            'company_facade' => 'required|file|mimes:jpg,jpeg,png|max:100000',
+            'dti_permit_validity' => 'required|date',
         ]);
 
         return DB::transaction(function () use ($request) {
@@ -55,6 +58,8 @@ class SupplierController extends Controller
             } else {
                 $authorization_path = null;
             }
+            $company_facade_name = uniqid() . '_.' . $request->file('company_facade')->getClientOriginalExtension();
+            $company_facade_path = $request->file('company_facade')->storeAs('suppliers/company_facades', $company_facade_name, 'public');
             DB::table('suppliers')->insert([
                 'email' => $request->email,
                 'company_name' => $request->company_name,
@@ -73,6 +78,9 @@ class SupplierController extends Controller
                 'dti_permit' => $dti_permit_name,
                 'authorization' => $authorization_name,
                 'company_profile' => $company_profile_name,
+                'company_address' => $request->company_address,
+                'facade' => $company_facade_name,
+                'dti_permit_validity' => $request->dti_permit_validity,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
