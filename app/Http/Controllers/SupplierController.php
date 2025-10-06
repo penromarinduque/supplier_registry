@@ -30,7 +30,10 @@ class SupplierController extends Controller
             'valid_id' => 'required|file|mimes:jpg,jpeg,png|max:100000',
             'philgeps_cert' => 'required|file|mimes:jpg,jpeg,png|max:100000',
             'business_permit' => 'required|file|mimes:jpg,jpeg,png|max:100000',
-            'bir_cert' => 'required|file|mimes:jpg,jpeg,png|max:100000'
+            'bir_cert' => 'required|file|mimes:jpg,jpeg,png|max:100000',
+            'dti_permit' => 'required|file|mimes:jpg,jpeg,png|max:100000',
+            'authorization' => 'nullable|file|mimes:jpg,jpeg,png|max:100000',
+            'company_profile' => 'required|file|mimes:jpg,jpeg,png|max:100000',
         ]);
 
         return DB::transaction(function () use ($request) {
@@ -42,7 +45,16 @@ class SupplierController extends Controller
             $business_permit_path = $request->file('business_permit')->storeAs('suppliers/business_permits', $business_permit_name, 'public');
             $bir_cert_name = uniqid() . '_.' . $request->file('bir_cert')->getClientOriginalExtension();
             $bir_cert_path = $request->file('bir_cert')->storeAs('suppliers/bir_certs', $bir_cert_name, 'public');
-
+            $dti_permit_name = uniqid() . '_.' . $request->file('dti_permit')->getClientOriginalExtension();
+            $dti_permit_path = $request->file('dti_permit')->storeAs('suppliers/dti_permits', $dti_permit_name, 'public');
+            $authorization_name = $request->hasFile('authorization') ? uniqid() . '_.' . $request->file('authorization')->getClientOriginalExtension() : null;
+            $company_profile_name = uniqid() . '_.' . $request->file('company_profile')->getClientOriginalExtension();
+            $company_profile_path = $request->file('company_profile')->storeAs('suppliers/company_profiles', $company_profile_name, 'public');
+            if($authorization_name){
+                $authorization_path = $request->file('authorization')->storeAs('suppliers/authorizations', $authorization_name, 'public');
+            } else {
+                $authorization_path = null;
+            }
             DB::table('suppliers')->insert([
                 'email' => $request->email,
                 'company_name' => $request->company_name,
@@ -58,6 +70,9 @@ class SupplierController extends Controller
                 'philgeps_cert' => $philgeps_cert_name,
                 'business_permit' => $business_permit_name,
                 'bir_cert' => $bir_cert_name,
+                'dti_permit' => $dti_permit_name,
+                'authorization' => $authorization_name,
+                'company_profile' => $company_profile_name,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
@@ -67,9 +82,17 @@ class SupplierController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::query()->paginate(20);
+        $suppliers_query = Supplier::query();
+        $search = $request->has('search') ? $request->search : null;
+        if ($search) {
+            $suppliers_query->where('company_name', 'like', '%' . $search . '%')
+                ->orWhere('authorized_representative', 'like', '%' . $search
+                . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
+        }
+        $suppliers = $suppliers_query->paginate(10);
         return view('suppliers.index', compact('suppliers'));
     }
 

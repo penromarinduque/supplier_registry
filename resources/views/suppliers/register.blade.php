@@ -26,6 +26,14 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <label for="company_profile">Upload Company Profile <span class="text-danger">*</span></label>
+                        <input type="file" accept="image/*,application/pdf" name="company_profile" id="company_profile" class="form-control-file" >
+                        @error('company_profile', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="philgeps_reg_no">PHILGEPS Registration/Certificate Number <span class="text-danger">*</span></label>
                         <input type="text" name="philgeps_reg_no" id="philgeps_reg_no" class="form-control" value="{{ old('philgeps_reg_no') }}" required>
@@ -63,22 +71,29 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="philgeps_cert">Upload PHILGEPS Registration Certificate <span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*" name="philgeps_cert" id="philgeps_cert" class="form-control-file" required>
+                        <input type="file" accept="image/*,application/pdf" name="philgeps_cert" id="philgeps_cert" class="form-control-file" required>
                         @error('philgeps_cert', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="business_permit">Upload Valid and Current Business/Mayor's Permit <span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*" name="business_permit" id="business_permit" class="form-control-file" required>
+                        <input type="file" accept="image/*,application/pdf" name="business_permit" id="business_permit" class="form-control-file" required>
                         @error('business_permit', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
-                        <label for="bir_cert">Upload BIR Certificate of Registration/DTI Permit <span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*" name="bir_cert" id="bir_cert" class="form-control-file" required>
+                        <label for="bir_cert">Upload BIR Certificate of Registration <span class="text-danger">*</span></label>
+                        <input type="file" accept="image/*,application/pdf" name="bir_cert" id="bir_cert" class="form-control-file" required>
                         @error('bir_cert', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <label for="dti_permit">Upload DTI Permit <span class="text-danger">*</span></label>
+                        <input type="file" accept="image/*,application/pdf" name="dti_permit" id="dti_permit" class="form-control-file" required>
+                        @error('dti_permit', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -118,8 +133,15 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="valid_id">Upload Valid ID of Authorized Representative <span class="text-danger">*</span></label>
-                        <input type="file" accept="image/*" name="valid_id" id="valid_id" class="form-control-file" required>
+                        <input type="file" accept="image/*,application/pdf" name="valid_id" id="valid_id" class="form-control-file" >
                         @error('valid_id', 'store')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <label for="authorization">Upload Notarized Special Power of Attorney/Board Resolution/Authorization as authorize representative valid for six (6) months<span class="text-danger">*</span></label>
+                        <input type="file" accept="image/*,application/pdf" name="authorization" id="authorization" class="form-control-file" required>
+                        @error('authorization', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

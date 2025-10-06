@@ -2,6 +2,20 @@
 @section('content')
 <div class="card">
     <div class="card-body">
+        <div class="d-flex justify-content-end mb-3">
+            <form action="" method="GET">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" name="search" class="form-control" placeholder="Search by Company Name or Authorized Representative" value="{{ request('search') }}">
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <a href="{{ route('admin.suppliers.index') }}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -9,6 +23,7 @@
                         {{-- <th style="width: 10px">#</th> --}}
                         <th>ACTIONS</th>
                         <th>COMPANY NAME</th>
+                        <th>COMPANY PROFILE</th>
                         <th>AUTHORIZED REPRESENTATIVE</th>
                         <th>LANDLINE NO. </th>
                         <th>MOBILE NUMBER</th>
@@ -19,7 +34,9 @@
                         <th>VALIDITY OF  BUSINESS/MAYOR'S PERMIT</th>
                         <th>LINE OF BUSINESS</th>
                         <th>AUTHORIZED REPRESENTATIVE ID</th>
-                        <th>BIR CERTIFICATE OF REGISTRATION/DTI PERMIT</th>
+                        <th>BIR CERTIFICATE OF REGISTRATION</th>
+                        <th>DTI PERMIT</th>
+                        <th>Authorization</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +48,13 @@
                                 </div>
                             </td>
                             <td>{{ $supplier->company_name }}</td>
+                            <td>
+                                @if ($supplier->company_profile)
+                                    <a href="{{ route('storage.view', ['url' => 'suppliers/company_profiles/' . $supplier->company_profile])}}" target="_blank">View Company Profile</a>
+                                @else
+                                    No Uploaded Profile
+                                @endif
+                            </td>
                             <td>{{ $supplier->authorized_representative }}</td>
                             <td>{{ $supplier->landline_no }}</td>
                             <td>{{ $supplier->mobile_no }}</td>
@@ -43,6 +67,20 @@
                             <td><a href="{{ route('storage.view', ['url' => 'suppliers/valid_ids/' . $supplier->valid_id])}}" target="_blank">View Valid ID</a></td>
                             <td>
                                 <a href="{{ route('storage.view', ['url' => 'suppliers/bir_certs/' . $supplier->bir_cert])}}" target="_blank">View BIR Certificate</a>
+                            </td>
+                            <td>
+                                @if ($supplier->dti_permit)
+                                    <a href="{{ route('storage.view', ['url' => 'suppliers/dti_permits/' . $supplier->dti_permit])}}" target="_blank">View DTR Permit</a>
+                                @else
+                                    No Uploaded Permit
+                                @endif
+                            </td>
+                            <td>
+                                @if ($supplier->authorization)
+                                    <a href="{{ route('storage.view', ['url' => 'suppliers/authorizations/' . $supplier->authorization])}}" target="_blank">View Authorization</a>
+                                @else
+                                    No Uploaded Authorization
+                                @endif
                             </td>
                         </tr>
                     @empty
