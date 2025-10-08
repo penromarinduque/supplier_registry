@@ -80,7 +80,7 @@
         
         <div class="mx-auto d-flex justify-content-center action-buttons">
             @auth
-                <a href="{{ route('admin.suppliers.index') }}" class="btn btn-primary">Enter</a>&nbsp;
+                <a href="{{ route('dashboard') }}" class="btn btn-primary">Enter</a>&nbsp;
             @endauth
             @guest
                 <a href="{{ route('auth.login') }}" class="btn btn-primary ">Login</a>&nbsp;
