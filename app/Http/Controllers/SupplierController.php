@@ -69,6 +69,14 @@ class SupplierController extends Controller
             } 
             $company_facade_name = uniqid() . '_.' . $request->file('company_facade')->getClientOriginalExtension();
             $request->file('company_facade')->storeAs('suppliers/company_facades', $company_facade_name, 'public');
+            User::create([
+                'name' => $request->authorized_representative,
+                'email' => $request->email,
+                'password' => bcrypt($password), 
+            ])->roles()->create([
+                'role_type_id' => 2, 
+            ]);
+            $user = User::where('email', $request->email)->first();
             DB::table('suppliers')->insert([
                 'email' => $request->email,
                 'company_name' => $request->company_name,
@@ -90,18 +98,11 @@ class SupplierController extends Controller
                 'company_address' => $request->company_address,
                 'facade' => $company_facade_name,
                 'dti_permit_validity' => $request->dti_permit_validity,
+                'user_id' => $user->id,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
             $password = Str::random(8); 
-            User::create([
-                'name' => $request->authorized_representative,
-                'email' => $request->email,
-                'password' => bcrypt($password), 
-            ])->roles()->create([
-                'role_type_id' => 2, 
-            ]);
-            $user = User::where('email', $request->email)->first();
             Log::info('Password for user ' . $user->email . ': ' . $password);
             Notification::send($user, new UserRegisteredNotification($password));
             return redirect()->route('suppliers.register')->with('success', 'Supplier registered successfully.');
