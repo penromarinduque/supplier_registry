@@ -29,6 +29,9 @@
                 <div class="row">
                     <div class="col">
                         <input type="text" name="search" class="form-control" placeholder="Search by Company Name or Authorized Representative" value="{{ request('search') }}">
+                        @if (request('type'))
+                            <input type="hidden" name="type" value="{{ request('type') }}">
+                        @endif
                     </div>
                     <div class="col">
                         <button type="submit" class="btn btn-primary">Search</button>
@@ -45,20 +48,20 @@
                         {{-- <th style="width: 10px">#</th> --}}
                         <th>ACTIONS</th>
                         <th>COMPANY NAME</th>
-                        <th>COMPANY PROFILE</th>
+                        {{-- <th>COMPANY PROFILE</th> --}}
                         <th>AUTHORIZED REPRESENTATIVE</th>
                         <th>LANDLINE NO. </th>
                         <th>MOBILE NUMBER</th>
                         <th>OFFICIAL E-MAIL ADDRESS</th>
-                        <th>PHILGEPS REGISTRATION/CERTIFICATE NUMBER</th>
-                        <th>VALIDITY OF PHILGEPS CERTIFICATE IF PLATINUM MEMBER</th>
-                        <th>BUSINESS/MAYOR'S PERMIT NUMBER</th>
-                        <th>VALIDITY OF  BUSINESS/MAYOR'S PERMIT</th>
-                        <th>LINE OF BUSINESS</th>
-                        <th>AUTHORIZED REPRESENTATIVE ID</th>
-                        <th>BIR CERTIFICATE OF REGISTRATION</th>
-                        <th>DTI PERMIT</th>
-                        <th>Authorization</th>
+                        {{-- <th>PHILGEPS REGISTRATION/CERTIFICATE NUMBER</th> --}}
+                        {{-- <th>VALIDITY OF PHILGEPS CERTIFICATE IF PLATINUM MEMBER</th> --}}
+                        {{-- <th>BUSINESS/MAYOR'S PERMIT NUMBER</th> --}}
+                        {{-- <th>VALIDITY OF  BUSINESS/MAYOR'S PERMIT</th> --}}
+                        {{-- <th>LINE OF BUSINESS</th> --}}
+                        {{-- <th>AUTHORIZED REPRESENTATIVE ID</th> --}}
+                        {{-- <th>BIR CERTIFICATE OF REGISTRATION</th> --}}
+                        {{-- <th>DTI PERMIT</th> --}}
+                        {{-- <th>Authorization</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -69,19 +72,23 @@
                                     <button class="btn btn-outline-danger btn-sm" onclick="confirmDelete('{{ route('admin.suppliers.destroy', ['supplier' => $supplier->id])}}', 'Are you sure you want to delete this supplier?')">Delete</button>
                                 </div>
                             </td>
-                            <td>{{ $supplier->company_name }}</td>
                             <td>
+                                <a href="#" onclick="showSupplierDetails('{{ route('admin.suppliers.show', ['supplier' => $supplier->id])}}')">
+                                    {{ $supplier->company_name }}
+                                </a>
+                            </td>
+                            {{-- <td>
                                 @if ($supplier->company_profile)
                                     <a href="{{ route('storage.view', ['url' => 'suppliers/company_profiles/' . $supplier->company_profile])}}" target="_blank">View Company Profile</a>
                                 @else
                                     No Uploaded Profile
                                 @endif
-                            </td>
+                            </td> --}}
                             <td>{{ $supplier->authorized_representative }}</td>
                             <td>{{ $supplier->landline_no }}</td>
                             <td>{{ $supplier->mobile_no }}</td>
                             <td>{{ $supplier->email }}</td>
-                            <td><a href="{{ route('storage.view', ['url' => 'suppliers/philgeps_certs/' . $supplier->philgeps_cert])}}" target="_blank">{{ $supplier->philgeps_reg_no }}</a></td>
+                            {{-- <td><a href="{{ route('storage.view', ['url' => 'suppliers/philgeps_certs/' . $supplier->philgeps_cert])}}" target="_blank">{{ $supplier->philgeps_reg_no }}</a></td>
                             <td>{{ $supplier->philgeps_validity->format('F j, Y') }}</td>
                             <td><a href="{{ route('storage.view', ['url' => 'suppliers/business_permits/' . $supplier->business_permit])}}" target="_blank">{{ $supplier->business_permit_no }}</a></td>
                             <td>{{ $supplier->business_permit_validity->format('F j, Y') }}</td>
@@ -103,11 +110,11 @@
                                 @else
                                     No Uploaded Authorization
                                 @endif
-                            </td>
+                            </td> --}}
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="13" class="text-center">No suppliers found.</td>
+                            <td colspan="6" class="text-center">No suppliers found.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -120,4 +127,5 @@
 
 @section('includes')
     @include('components.deleteConfirmationModal')
+    @include('components.showSupplierDetailsModal')
 @endsection

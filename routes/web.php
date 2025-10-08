@@ -10,6 +10,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/terms-and-conditions', function () {
+    return view('terms-and-conditions');
+})->name('terms-and-conditions');
+
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
 Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
@@ -31,6 +35,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::group(['prefix' => 'suppliers', 'as' => 'suppliers.'], function () {
         Route::get('', [SupplierController::class, 'index'])->name('index')->middleware('auth');
         Route::delete('{supplier}', [SupplierController::class, 'destroy'])->name('destroy')->middleware('auth');
+        Route::get('{supplier}', [SupplierController::class, 'show'])->name('show')->middleware('auth');
     });
 });
 
@@ -41,6 +46,5 @@ Route::group(['prefix' => 'supplier', 'as' => 'supplier.'], function () {
 
 Route::get('storage/view', function (Request $request) {
     $url = $request->get('url');
-    // return $url;
     return response()->file(storage_path('app/public/' . $url));
 })->name('storage.view');

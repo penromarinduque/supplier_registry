@@ -121,7 +121,7 @@
                 </div>
                 <hr>
                 <h6 class="font-weight-bold h5">Authorized Representative</h6>
-                <div class="row align-items-end">
+                <div class="row align-items-end mb-3">
                     @csrf
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="email">Email <span class="text-danger">*</span></label>
@@ -160,12 +160,23 @@
                         @enderror
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
-                        <label for="authorization">Upload Notarized Special Power of Attorney/Board Resolution/Authorization as authorize representative valid for six (6) months<span class="text-danger">*</span></label>
+                        <label for="authorization">Upload Notarized Special Power of Attorney/Board Resolution/Authorization as authorize representative valid for six (6) months</label>
                         <input type="file" accept="image/*,application/pdf" name="authorization" id="authorization" class="form-control-file" required>
                         @error('authorization', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
+
+                <div class="alert alert-warning mb-3" role="alert">
+                    <strong>Note:</strong> Please be informed and reminded that the Company may and shall be registered in the PPMS only once. If you have an existing account, kindly <a href="{{ route('auth.login') }}">login</a> to your account and update necessary information. Thank you
+                </div>
+                <div class="form-group form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="tnc" name="tnc" required>
+                    <label class="form-check-label" for="tnc" >By checking this box, I agree to the <a href="{{ route('terms-and-conditions') }}" target="_blank">Terms and Conditions</a></label>
+                    @error('tnc', 'store')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary btn-submit">Submit</button>

@@ -1,7 +1,7 @@
 @extends('layouts.main.master')
 @section('content')
 <div class="container">
-    <form action="{{ route('supplier.update', ['id' => $supplier->id]) }}" method="POST">
+    <form action="{{ route('supplier.update', ['id' => $supplier->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <ul>
             @foreach ($errors->updateProfile->all() as $item)

@@ -44,6 +44,9 @@ class SupplierController extends Controller
             'company_address' => 'required|string|max:255',
             'company_facade' => 'required|file|max:100000',
             'dti_permit_validity' => 'required|date',
+            'tnc' => 'accepted',
+        ], [], [
+            'tnc' => 'terms and conditions',
         ]);
 
         if(User::where('email', $request->email)->exists()){
@@ -105,7 +108,7 @@ class SupplierController extends Controller
             ]);
             Log::info('Password for user ' . $user->email . ': ' . $password);
             Notification::send($user, new UserRegisteredNotification($password));
-            return redirect()->route('suppliers.register')->with('success', 'Supplier registered successfully.');
+            return redirect()->route('suppliers.register')->with('success', 'Supplier registered successfully. Please check your email for your login credentials.');
         });
     }
 
@@ -114,14 +117,14 @@ class SupplierController extends Controller
         Gate::authorize('viewAny', Supplier::class);
         $suppliers_query = Supplier::query();
         $search = $request->has('search') ? $request->search : null;
-        $eligible = $request->has('type') && $request->type === 'eligible' ? true : false;
+        $eligible = $request->has('type') ? ($request->type === 'ineligible' ? false : true) : ($request->type === 'eligible' ? true : false);
+        $request->route()->setParameter('type', $eligible ? 'eligible' : 'ineligible');
         if($eligible){
             $suppliers_query->where(function($query) {
                 $query->whereDate('philgeps_validity', '>=', now())
                       ->whereDate('business_permit_validity', '>=', now())
                       ->whereDate('dti_permit_validity', '>=', now());
             });
-            request('type', 'eligible');
         }
         else {
             $suppliers_query->where(function($query) {
@@ -129,13 +132,13 @@ class SupplierController extends Controller
                       ->orWhereDate('business_permit_validity', '<', now())
                       ->orWhereDate('dti_permit_validity', '<', now());
             });
-            request('type', 'ineligible');
         }
         if ($search) {
-            $suppliers_query->where('company_name', 'like', '%' . $search . '%')
-                ->orWhere('authorized_representative', 'like', '%' . $search
-                . '%')
-                ->orWhere('email', 'like', '%' . $search . '%');
+            $suppliers_query->where(function($q) use ($search) {
+                $q->where('company_name', 'like', '%' . $search . '%')
+                ->orWhere('authorized_representative', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', $search . '%');
+            });
         }
         $suppliers = $suppliers_query->paginate(10);
         return view('suppliers.index', compact('suppliers'));
@@ -143,12 +146,18 @@ class SupplierController extends Controller
 
     public function destroy(Supplier $supplier)
     {
+        $supplier = Supplier::findOrFail($supplier->id);
+        Gate::authorize('delete', $supplier);
         // Delete associated files
         $files = [
             'suppliers/valid_ids/' . $supplier->valid_id,
             'suppliers/philgeps_certs/' . $supplier->philgeps_cert,
             'suppliers/business_permits/' . $supplier->business_permit,
             'suppliers/bir_certs/' . $supplier->bir_cert,
+            'suppliers/dti_permits/' . $supplier->dti_permit,
+            'suppliers/authorizations/' . $supplier->authorization,
+            'suppliers/company_profiles/' . $supplier->company_profile,
+            'suppliers/company_facades/' . $supplier->facade,
         ];
 
         foreach ($files as $file) {
@@ -163,7 +172,7 @@ class SupplierController extends Controller
             User::find($supplier->user_id)?->delete();
             Role::where('user_id', $supplier->user_id)->delete();
             $supplier->delete();
-            return redirect()->route('admin.suppliers.index')->with('success', 'Supplier deleted successfully.');
+            return redirect()->back()->with('success', 'Supplier deleted successfully.');
         });
     }
 
@@ -302,7 +311,6 @@ class SupplierController extends Controller
                 $supplier->company_profile = $company_profile_name;
             }
 
-            $supplier->email = $request->email;
             $supplier->company_name = $request->company_name;
             $supplier->authorized_representative = $request->authorized_representative;
             $supplier->landline_no = $request->landline_no;
@@ -319,6 +327,12 @@ class SupplierController extends Controller
 
             return redirect()->route('supplier.profile')->with('success', 'Profile updated successfully.');
         });
+    }
+
+    public function show($supplier){
+        $supplier = Supplier::findOrFail($supplier);
+        
+        return view('suppliers.show', compact('supplier'));
     }
 }
         
