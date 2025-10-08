@@ -12,5 +12,6 @@ class Supplier extends Model
     protected $casts = [
         'philgeps_validity' => 'date',
         'business_permit_validity' => 'date',
+        'dti_permit_validity' => 'date',
     ];
 }

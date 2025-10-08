@@ -12,6 +12,14 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       @auth
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="https://api.dicebear.com/9.x/identicon/svg?seed={{ auth()->user()->name }}" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+          </div>
+        </div>
       @endauth
 
 
@@ -22,14 +30,26 @@
                with font-awesome or any other icon font library -->
 
           @auth 
+            @if (auth()->user()->isAdmin())
             <li class="nav-item ">
-              <a href="{{ route('admin.suppliers.index') }}" class="nav-link ">
+              <a href="{{ route('admin.suppliers.index') }}" class="nav-link">
                 <i class="fas fa-users"></i>
                 <p>
                   Suppliers
                 </p>
               </a>
             </li>
+            @endif
+            @if (auth()->user()->isSupplier())
+            <li class="nav-item ">
+              <a href="{{ route('supplier.profile') }}" class="nav-link" >
+                <i class="fas fa-box"></i>
+                <p>
+                  Supplier Profile
+                </p>
+              </a>
+            </li>
+            @endif
             <li class="nav-item ">
               <a href="{{ route('auth.logout')}}" class="nav-link ">
                 <i class="fas fa-sign-out-alt"></i>

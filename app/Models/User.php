@@ -42,4 +42,28 @@ class User extends Authenticatable
         ];
     }
 
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles()->whereHas('roleType', function ($q) {
+            $q->where('name', 'Admin');
+        })->exists();
+    }
+
+    public function isSupplier()
+    {
+        return $this->roles()->whereHas('roleType', function ($q) {
+            $q->where('name', 'Supplier');
+        })->exists();
+    }
+
+    public function supplier()
+    {
+        return $this->hasOne(Supplier::class);
+    }
+
 }

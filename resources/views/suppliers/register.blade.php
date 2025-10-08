@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="company_address">Company Address <span class="text-danger">*</span></label>
-                        <input type="text"  name="company_address" id="company_address" class="form-control" >
+                        <input type="text"  name="company_address" id="company_address" class="form-control" value="{{ old('company_address') }}" required" >
                         @error('company_address', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -113,7 +113,7 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mb-2">
                         <label for="dti_permit_validity">DTI Permit Validity <span class="text-danger">*</span></label>
-                        <input type="date" name="dti_permit_validity" id="dti_permit_validity" class="form-control" required>
+                        <input type="date" name="dti_permit_validity" id="dti_permit_validity" class="form-control" value="{{ old('dti_permit_validity') }}" required>
                         @error('dti_permit_validity', 'store')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

@@ -19,7 +19,7 @@ class AuthController extends Controller
 
         if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect(route('admin.suppliers.index'));
+            return redirect(route('dashboard'));
         }
 
         return back()->withErrors([

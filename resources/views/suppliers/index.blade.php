@@ -2,6 +2,20 @@
 @section('content')
 <div class="card">
     <div class="card-body">
+        {{-- <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+            </li>
+        </ul> --}}
         <div class="d-flex justify-content-end mb-3">
             <form action="" method="GET">
                 <div class="row">
