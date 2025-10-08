@@ -69,6 +69,7 @@ class SupplierController extends Controller
             } 
             $company_facade_name = uniqid() . '_.' . $request->file('company_facade')->getClientOriginalExtension();
             $request->file('company_facade')->storeAs('suppliers/company_facades', $company_facade_name, 'public');
+            $password = Str::random(8); 
             User::create([
                 'name' => $request->authorized_representative,
                 'email' => $request->email,
@@ -102,7 +103,6 @@ class SupplierController extends Controller
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
-            $password = Str::random(8); 
             Log::info('Password for user ' . $user->email . ': ' . $password);
             Notification::send($user, new UserRegisteredNotification($password));
             return redirect()->route('suppliers.register')->with('success', 'Supplier registered successfully.');
