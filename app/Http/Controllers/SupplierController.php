@@ -113,6 +113,23 @@ class SupplierController extends Controller
         Gate::authorize('viewAny', Supplier::class);
         $suppliers_query = Supplier::query();
         $search = $request->has('search') ? $request->search : null;
+        $eligible = $request->has('type') && $request->type === 'eligible' ? true : false;
+        if($eligible){
+            $suppliers_query->where(function($query) {
+                $query->whereDate('philgeps_validity', '>=', now())
+                      ->whereDate('business_permit_validity', '>=', now())
+                      ->whereDate('dti_permit_validity', '>=', now());
+            });
+            request('type', 'eligible');
+        }
+        else {
+            $suppliers_query->where(function($query) {
+                $query->whereDate('philgeps_validity', '<', now())
+                      ->orWhereDate('business_permit_validity', '<', now())
+                      ->orWhereDate('dti_permit_validity', '<', now());
+            });
+            request('type', 'ineligible');
+        }
         if ($search) {
             $suppliers_query->where('company_name', 'like', '%' . $search . '%')
                 ->orWhere('authorized_representative', 'like', '%' . $search

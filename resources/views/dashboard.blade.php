@@ -17,7 +17,7 @@
             <div class="small-box bg-success">
                 <div class="inner">
                     <h3>{{ number_format($adminViewData['eligible_suppliers_count'], 0, ',', ',') }}</h3>
-                    <p>Eligible Suppliers</p>
+                    <p>Eligible Bidders/Suppliers</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-users"></i>
@@ -28,7 +28,7 @@
             <div class="small-box bg-danger">
                 <div class="inner">
                     <h3>{{ number_format($adminViewData['ineligible_suppliers_count'], 0, ',', ',') }}</h3>
-                    <p>Ineligible Suppliers</p>
+                    <p>Not Eligible Biddlers/Suppliers</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-users"></i>

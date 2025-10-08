@@ -32,7 +32,7 @@
           @auth 
             @if (auth()->user()->isAdmin())
             <li class="nav-item ">
-              <a href="{{ route('admin.suppliers.index') }}" class="nav-link">
+              <a href="{{ route('admin.suppliers.index', ['type' => 'eligible']) }}" class="nav-link">
                 <i class="fas fa-users"></i>
                 <p>
                   Suppliers

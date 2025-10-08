@@ -2,20 +2,28 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        {{-- <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs mb-2">
+            @php
+                $query = request()->query();
+                $query['type'] = 'eligible';
+                $url = request()->url() . '?' . http_build_query($query);
+            @endphp
             <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
+                <a class="nav-link {{ request('type') === 'eligible' ? 'active' : '' }}" href="{{ $url }}">
+                    Eligible Bidders/Suppliers
+                </a>
             </li>
+            @php
+                $query = request()->query();
+                $query['type'] = 'ineligible';
+                $url = request()->url() . '?' . http_build_query($query);
+            @endphp
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link {{ request('type') === 'ineligible' ? 'active' : '' }}" href="{{ $url }}">
+                    Not Eligible Bidders/Suppliers
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-            </li>
-        </ul> --}}
+        </ul>
         <div class="d-flex justify-content-end mb-3">
             <form action="" method="GET">
                 <div class="row">
